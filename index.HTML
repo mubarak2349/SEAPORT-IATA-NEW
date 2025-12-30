@@ -73,13 +73,12 @@ footer{text-align:center;padding:14px;font-size:12px;opacity:.6}
 </head>
 
 <body>
-
 <div class="bg-flight" id="bgFlight">
- <div class="logo">
-  <div class="blue"></div>
-  <div class="white"></div>
-  <div class="dark"></div>
- </div>
+    <div class="logo">
+        <div class="blue"></div>
+        <div class="white"></div>
+        <div class="dark"></div>
+    </div>
 </div>
 
 <header>
@@ -122,8 +121,8 @@ footer{text-align:center;padding:14px;font-size:12px;opacity:.6}
 <footer>🚀 Shared online via Google Sheets – Free forever</footer>
 
 <script>
-/* 🔴 ONLY REQUIRED ADDITION */
-const API_URL = "https://script.google.com/macros/s/AKfycbyKwd6xfdROBC5eTnrKCkgWKROjUrPOeGnasfsDBZKf2_vdbsvziboSYuE_tcM0CIic/exec";
+/* ================= GOOGLE SHEET URL ================= */
+const API_URL = "PASTE_YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE";
 
 /* ================= GLOBAL STATE ================= */
 let store = {};
@@ -198,12 +197,168 @@ async function saveData(key=null){
  isUpdating=false;
 }
 
-/* ================= EXISTING LOGIC (UNCHANGED) ================= */
-/* --- rest of your original JS remains same --- */
+/* ================= EXISTING LOGIC ================= */
+/* --- keep all your original functions here --- */
+async function saveValue(code, field, value) {
+ store[code] = store[code] || {};
+ store[code][field] = +value.replace(/[^0-9]/g, "") || 0;
+ await saveData(code);
+ renderTable();
+}
 
+async function togglePaid(code, field, value) {
+ store[code] = store[code] || {};
+ store[code][field] = value;
+ await saveData(code);
+ renderTable();
+}
+
+function updateDashboard() {
+ const dInv = document.getElementById("dInv"), dPend = document.getElementById("dPend");
+ const dRem = document.getElementById("dRem"), dBor = document.getElementById("dBor"), dAVL = document.getElementById("dAVL");
+
+ let dInvTotal = 0, dPendTotal = 0, dRemTotal = 0, dBorTotal = 0, dAVLTotal = 0;
+
+ periods.forEach((p, i) => {
+  if (i === ci) {
+   const d = store[p[0]] || {};
+   const sl = +d.sl || 0, ai = +d.ai || 0, sg = +d.sg || 0;
+   const slp = d.slp || 0, aip = d.aip || 0, sgp = d.sgp || 0;
+   const avl = +d.avl || 0;
+   const inv = sl + ai + sg;
+   const paid = (slp ? sl : 0) + (aip ? ai : 0) + (sgp ? sg : 0);
+   const rem = inv - paid - avl;
+   
+   dInvTotal = inv; dPendTotal = inv - paid; dRemTotal = rem; dAVLTotal = avl;
+  }
+  const d = store[p[0]] || {};
+  dBorTotal += +d.bor || 0;
+ });
+
+ dInv.textContent = inr(dInvTotal); dPend.textContent = inr(dPendTotal);
+ dRem.textContent = inr(dRemTotal); dBor.textContent = inr(dBorTotal); dAVL.textContent = inr(dAVLTotal);
+
+ function w(id, val, max) {
+  const el = document.getElementById(id);
+  if (el) el.style.width = Math.min(100, (val / (max || 1)) * 100) + "%";
+ }
+ w("wInv", dInvTotal, dInvTotal); w("wPend", dPendTotal, dInvTotal);
+ w("wRem", dRemTotal, dInvTotal); w("wBor", dBorTotal, dBorTotal); w("wAVL", dAVLTotal, dInvTotal);
+}
+
+/* ================= TABLE RENDER ================= */
+function renderTable() {
+ const tb = document.getElementById("tbody");
+ const periodFilter = document.getElementById("periodFilter");
+ tb.innerHTML = ""; 
+ periodFilter.innerHTML = '<option value="ALL">All Periods</option>';
+
+ ci = periods.findIndex(p => new Date(p[2]) >= today);
+
+ periods.forEach((p, i) => {
+  const d = store[p[0]] || {};
+  const sl = +d.sl || 0, ai = +d.ai || 0, sg = +d.sg || 0;
+  const slp = d.slp || 0, aip = d.aip || 0, sgp = d.sgp || 0;
+  const avl = +d.avl || 0, bor = +d.bor || 0;
+  const inv = sl + ai + sg;
+  const paid = (slp ? sl : 0) + (aip ? ai : 0) + (sgp ? sg : 0);
+  const rem = inv - paid - avl;
+  const days = Math.ceil((new Date(p[2]) - today) / 86400000);
+  const dayCls = days < 0 ? "days-over" : days <= 17 ? "days-warn" : "days-ok";
+  const a = (inv ? sl / inv * 360 : 0);
+  const b = (inv ? (sl + ai) / inv * 360 : 0);
+
+  const tr = document.createElement("tr");
+  tr.className = i < ci ? "freeze" : i === ci ? "current" : i === ci + 1 ? "next" : "freeze";
+  tr.dataset.period = p[0];
+
+  tr.innerHTML = `
+   <td>${fnLabel(p[0])}</td>
+   <td>${p[1]}</td>
+   <td>${p[2]}</td>
+   <td class="${dayCls}">${days}</td>
+   
+   <td class="${slp ? 'paidCell' : 'pendingCell'}">
+    <input ${i > ci + 1 ? "disabled" : ""} value="${sl}" onchange="saveValue('${p[0]}','sl',this.value)">
+   </td>
+   <td>
+    <button class="btn ${slp ? 'btn-paid' : 'btn-pending'}" onclick="togglePaid('${p[0]}','slp',1)">Paid</button>
+    <button class="btn ${slp ? 'btn-pending' : 'btn-paid'}" onclick="togglePaid('${p[0]}','slp',0)">Pending</button>
+    <div class="status-updating">📱</div>
+   </td>
+   
+   <td class="${aip ? 'paidCell' : 'pendingCell'}">
+    <input ${i > ci + 1 ? "disabled" : ""} value="${ai}" onchange="saveValue('${p[0]}','ai',this.value)">
+   </td>
+   <td>
+    <button class="btn ${aip ? 'btn-paid' : 'btn-pending'}" onclick="togglePaid('${p[0]}','aip',1)">Paid</button>
+    <button class="btn ${aip ? 'btn-pending' : 'btn-paid'}" onclick="togglePaid('${p[0]}','aip',0)">Pending</button>
+    <div class="status-updating">📱</div>
+   </td>
+   
+   <td class="${sgp ? 'paidCell' : 'pendingCell'}">
+    <input ${i > ci + 1 ? "disabled" : ""} value="${sg}" onchange="saveValue('${p[0]}','sg',this.value)">
+   </td>
+   <td>
+    <button class="btn ${sgp ? 'btn-paid' : 'btn-pending'}" onclick="togglePaid('${p[0]}','sgp',1)">Paid</button>
+    <button class="btn ${sgp ? 'btn-pending' : 'btn-paid'}" onclick="togglePaid('${p[0]}','sgp',0)">Pending</button>
+    <div class="status-updating">📱</div>
+   </td>
+   
+   <td>${inr(inv)}</td>
+   <td>${inr(paid)}</td>
+   <td><input ${i > ci + 1 ? "disabled" : ""} value="${avl}" onchange="saveValue('${p[0]}','avl',this.value)"></td>
+   <td><input ${i > ci + 1 ? "disabled" : ""} value="${bor}" onchange="saveValue('${p[0]}','bor',this.value)"></td>
+   <td>${inr(rem)}</td>
+   <td><div class="donut" style="--a:${a}deg;--b:${b}deg"></div></td>
+   <td><div class="mini"><div style="width:${inv ? paid / inv * 100 : 0}%"></div><div style="width:${inv ? rem / inv * 100 : 0}%"></div></div></td>
+  `;
+  tb.appendChild(tr);
+
+  const opt = document.createElement("option");
+  opt.value = p[0]; opt.text = fnLabel(p[0]);
+  periodFilter.appendChild(opt);
+ });
+
+ updateDashboard(); applyFilter(); 
+ document.body.classList.remove("loading");
+}
+
+/* ================= FILTER ================= */
+function applyFilter() {
+ const v = document.getElementById("periodFilter").value;
+ document.querySelectorAll("#tbody tr").forEach(r => {
+  r.style.display = (v === "ALL" || r.dataset.period === v) ? "" : "none";
+ });
+}
+
+/* ================= PLANE ANIMATION ================= */
+const plane = document.getElementById("bgFlight");
+let x = -30; let y = 30;
+function fly() {
+ x += 25 + Math.random() * 15; y += Math.random() * 8 - 4;
+ if (x > 120) { x = -30; y = Math.random() * 60; }
+ const bank = Math.random() * 12 - 6;
+ plane.style.left = x + "vw"; plane.style.top = y + "vh";
+ plane.style.transform = `rotate(${bank}deg)`; setTimeout(fly, 5000);
+}
+fly();
+
+/* ================= INIT ================= */
+loadData();
+
+// 🔥 REALTIME POLLING (1 second)
+setInterval(async () => {
+ try {
+  const res = await fetch(API_URL);
+  const newData = await res.json();
+  if (JSON.stringify(newData) !== JSON.stringify(store)) {
+   store = newData;
+   renderTable();
+  }
+ } catch(e) {}
+}, 1000);
 </script>
 
 </body>
 </html>
-
-
