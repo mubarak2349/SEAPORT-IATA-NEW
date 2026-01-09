@@ -2,32 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>mubarak</title>
-
-<style>
-/* ===== Flying Logo (NO rectangle) ===== */
-.bg-flight {
- position: fixed;
- width: 260px;
- height: 110px;
- opacity: 0.14;
- pointer-events: none;
- z-index: 0;
- clip-path: polygon(
-  5% 50%, 15% 35%, 40% 30%,
-  70% 20%, 95% 50%,
-  70% 80%, 40% 70%, 15% 65%
- );
- transition: transform 5s linear, top 5s linear, left 5s linear;
-}
-.logo {width:100%;height:100%;position:relative;}
-.blue {position:absolute;width:55%;height:100%;background:#0a4fd6;
- clip-path: polygon(0 10%,85% 0,45% 100%,0 90%);}
-.white {position:absolute;width:70%;height:100%;left:30%;background:white;
- clip-path: polygon(20% 0,60% 0,40% 50%,60% 100%,20% 100%,40% 50%);}
-.dark {position:absolute;width:55%;height:100%;right:0;background:#2f2f2f;
- clip-path: polygon(15% 0,100% 50%,15% 100%);}
-</style>
+<title>SEAPORT AIR DIV – CASS PAYMENT CALENDAR</title>
 
 <style>
 :root{
@@ -38,10 +13,11 @@
  --current:#1e3a8a;--next:#0f766e;
 }
 .light{
- --bg:#f8fafc;--panel:#fff;--card:#fff;--border:#e5e7eb;
+ --bg:#f8fafc;--panel:#ffffff;--card:#ffffff;--border:#e5e7eb;
  --txt:#020617;--muted:#475569;
  --current:#eef2ff;--next:#ecfeff;
 }
+
 *{box-sizing:border-box}
 body{
  margin:0;
@@ -49,114 +25,136 @@ body{
  background:radial-gradient(circle at top,var(--card),var(--bg) 70%);
  color:var(--txt);
 }
+
+/* ===== PLANE ===== */
+.bg-flight{
+ position:fixed;
+ width:240px;height:90px;
+ opacity:.12;
+ pointer-events:none;
+ z-index:0;
+ transition:all 5s linear;
+}
+.logo{position:relative;width:100%;height:100%}
+.blue{position:absolute;width:55%;height:100%;background:#0a4fd6;
+ clip-path:polygon(0 10%,85% 0,45% 100%,0 90%)}
+.white{position:absolute;width:70%;height:100%;left:30%;background:#fff;
+ clip-path:polygon(20% 0,60% 0,40% 50%,60% 100%,20% 100%,40% 50%)}
+.dark{position:absolute;width:55%;height:100%;right:0;background:#2f2f2f;
+ clip-path:polygon(15% 0,100% 50%,15% 100%)}
+
+/* ===== HEADER ===== */
 header{
  display:flex;align-items:center;gap:12px;
- padding:16px 22px;
- background:var(--panel);
+ padding:16px 22px;background:var(--panel);
  position:sticky;top:0;z-index:10;
+ box-shadow:0 20px 60px rgba(0,0,0,.4);
 }
 header h3{margin:0;font-size:20px}
 .theme-btn{
  margin-left:auto;
- padding:6px 12px;
- border-radius:14px;
+ padding:6px 12px;border-radius:14px;
  border:1px solid var(--border);
- background:var(--card);
- color:var(--txt);
+ background:var(--card);color:var(--txt);
  cursor:pointer;
- font-size:12px;
 }
+
+/* ===== DASHBOARD ===== */
 .dashboard{
  padding:20px;
  display:grid;
- grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
  gap:16px;
 }
 .card{
  background:linear-gradient(180deg,var(--card),var(--bg));
- border-radius:18px;
- padding:16px;
+ border-radius:18px;padding:16px;
+ box-shadow:0 25px 70px rgba(0,0,0,.45);
 }
 .card h4{margin:0;font-size:12px;color:var(--muted)}
-.card p{margin:6px 0;font-size:24px;font-weight:700}
+.card p{margin:6px 0;font-size:22px;font-weight:700}
 .wave{height:8px;border-radius:20px;background:var(--bg);overflow:hidden}
 .wave span{
  display:block;height:100%;
  background:linear-gradient(90deg,var(--blue),var(--purple));
+ transition:width 1s ease;
 }
+
+/* ===== FILTER ===== */
 .filter-bar{padding:0 20px 10px}
 select{
- padding:6px 10px;
- border-radius:10px;
- background:var(--card);
- color:var(--txt);
+ padding:6px 10px;border-radius:10px;
+ background:var(--card);color:var(--txt);
  border:1px solid var(--border);
 }
+
+/* ===== TABLE ===== */
 .container{padding:0 20px 30px}
 .table-wrap{
  background:var(--panel);
  border-radius:22px;
+ box-shadow:0 40px 120px rgba(0,0,0,.5);
  overflow:auto;
 }
 table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:10px;text-align:center}
 th{
- padding:12px;
  background:var(--panel);
  border-bottom:1px solid var(--border);
+ text-transform:uppercase;
 }
-td{
- padding:8px;
- border-bottom:1px solid var(--bg);
- text-align:center;
-}
-tr.freeze{opacity:.45}
+td{border-bottom:1px solid var(--bg)}
 tr.current{background:var(--current)}
 tr.next{background:var(--next)}
+tr.freeze{opacity:.45}
+
 input{
- width:85px;
- padding:4px;
- text-align:right;
- background:var(--bg);
- color:var(--txt);
+ width:90px;padding:6px;text-align:right;
+ background:var(--bg);color:var(--txt);
  border:1px solid var(--border);
- border-radius:6px;
- font-size:11px;
+ border-radius:8px;
 }
 input:disabled{opacity:.4}
+
 .btn{
- padding:3px 6px;
- border-radius:6px;
- border:1px solid var(--border);
- background:linear-gradient(180deg,var(--card),var(--bg));
- color:var(--txt);
- font-size:9px;
+ padding:4px 8px;font-size:11px;
+ border-radius:8px;border:1px solid var(--border);
+ background:var(--card);color:var(--txt);
  cursor:pointer;
- margin:1px;
 }
+
 .paidCell{background:rgba(34,197,94,.25)}
 .pendingCell{background:rgba(245,158,11,.25)}
+
 .days-ok{color:var(--green)}
 .days-warn{color:var(--amber)}
 .days-over{color:var(--red)}
+.freeze-days{color:var(--red);font-weight:700}
+
 .donut{
- width:34px;height:34px;border-radius:50%;
- background:conic-gradient(
-  var(--green) 0deg,var(--green) var(--a),
-  var(--amber) var(--a),var(--amber) var(--b),
-  var(--blue) var(--b),var(--blue) 360deg
- );
+ width:32px;height:32px;border-radius:50%;
  margin:auto;
+ background:conic-gradient(
+   var(--green) 0deg,
+   var(--green) var(--a),
+   var(--amber) var(--a),
+   var(--amber) var(--b),
+   var(--blue) var(--b),
+   var(--blue) 360deg
+ );
 }
+
 .mini{display:flex;height:8px;border-radius:6px;overflow:hidden;background:var(--bg)}
 .mini div:nth-child(1){background:var(--green)}
 .mini div:nth-child(2){background:var(--amber)}
-footer{text-align:center;padding:14px;font-size:12px;opacity:.6}
+
+footer{text-align:center;padding:12px;font-size:12px;opacity:.6}
 </style>
 </head>
 
 <body>
 
-<div class="bg-flight" id="bgFlight">
+<div class="bg-flight" id="plane">
  <div class="logo">
   <div class="blue"></div>
   <div class="white"></div>
@@ -165,16 +163,15 @@ footer{text-align:center;padding:14px;font-size:12px;opacity:.6}
 </div>
 
 <header>
- <h3>SEAPORT (Air division) - IATA Cass payment calendar</h3>
- <button class="theme-btn" onclick="toggleTheme()">🌙 Mode of View 🌞</button>
+ <h3>SEAPORT (Air Division) – IATA CASS Calendar</h3>
+ <button class="theme-btn" onclick="toggleTheme()">🌙 / ☀️</button>
 </header>
 
 <div class="dashboard">
- <div class="card"><h4>Current Period Invoice</h4><p id="dInv">₹0</p><div class="wave"><span id="wInv"></span></div></div>
- <div class="card"><h4>Current Period Pending</h4><p id="dPend">₹0</p><div class="wave"><span id="wPend"></span></div></div>
- <div class="card"><h4>Remaining Balance</h4><p id="dRem">₹0</p><div class="wave"><span id="wRem"></span></div></div>
- <div class="card"><h4>Total Borrowed</h4><p id="dBor">₹0</p><div class="wave"><span id="wBor"></span></div></div>
- <div class="card"><h4>AVL Balance</h4><p id="dAVL">₹0</p><div class="wave"><span id="wAVL"></span></div></div>
+ <div class="card"><h4>Invoice</h4><p id="dInv">₹0</p><div class="wave"><span id="wInv"></span></div></div>
+ <div class="card"><h4>Pending</h4><p id="dPend">₹0</p><div class="wave"><span id="wPend"></span></div></div>
+ <div class="card"><h4>Remaining</h4><p id="dRem">₹0</p><div class="wave"><span id="wRem"></span></div></div>
+ <div class="card"><h4>Borrowed</h4><p id="dBor">₹0</p></div>
 </div>
 
 <div class="filter-bar">
@@ -188,12 +185,12 @@ footer{text-align:center;padding:14px;font-size:12px;opacity:.6}
 <table>
 <thead>
 <tr>
- <th>Period</th><th>Invoice</th><th>Remittance</th><th>Days Left</th>
- <th>Srilankan</th><th>Status</th>
- <th>AirIndia</th><th>Status</th>
- <th>Singapore</th><th>Status</th>
- <th>Total</th><th>Paid</th><th>AVL</th><th>Borrowed</th>
- <th>Remaining</th><th>Airline Split</th><th>Progress</th>
+<th>Period</th><th>Invoice</th><th>Remittance</th><th>Days</th>
+<th>SL</th><th>Status</th>
+<th>AI</th><th>Status</th>
+<th>SG</th><th>Status</th>
+<th>Total</th><th>Paid</th><th>AVL</th><th>Borrowed</th><th>Remaining</th>
+<th>Split</th><th>Progress</th>
 </tr>
 </thead>
 <tbody id="tbody"></tbody>
@@ -201,122 +198,105 @@ footer{text-align:center;padding:14px;font-size:12px;opacity:.6}
 </div>
 </div>
 
-<footer>📦 Offline • Local Storage Enabled</footer>
+<footer>© 2025 MCODE – Stable Local Version</footer>
 
 <script>
-/* ================= LOCAL STORAGE ================= */
-const LS_KEY = "SEAPORT_CASS_LOCAL";
-let store = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
-function saveStore(){ localStorage.setItem(LS_KEY, JSON.stringify(store)); }
-
-/* ================= PERIODS ================= */
-const periods = [
- ["20251102F","2025-12-09","2025-12-30"],
- ["20251201F","2025-12-25","2026-01-14"],
- ["20251202F","2026-01-08","2026-01-30"],
- ["20260101F","2026-01-25","2026-02-16"]
+/* ===== DATA ===== */
+const periods=[
+["20251201F","2025-12-25","2026-01-14"],
+["20251202F","2026-01-08","2026-01-30"],
+["20260101F","2026-01-25","2026-02-16"]
 ];
-let today = new Date(), ci = -1;
+let store=JSON.parse(localStorage.cass||"{}");
+let today=new Date();
 
-/* ================= THEME ================= */
-if(localStorage.theme==="light")document.body.classList.add("light");
-function toggleTheme(){
- document.body.classList.toggle("light");
- localStorage.theme=document.body.classList.contains("light")?"light":"dark";
-}
-
-/* ================= UTILS ================= */
-function inr(x){return "₹"+(x||0).toLocaleString("en-IN")}
-function fnLabel(code){
- const y=code.slice(0,4),m=code.slice(4,6),f=code.slice(6,7);
+/* ===== UTILS ===== */
+const inr=v=>"₹"+(v||0).toLocaleString("en-IN");
+const label=c=>{
+ const y=c.slice(0,4),m=c.slice(4,6),f=c.slice(6,7);
  const mn=["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
  return `${mn[+m]} ${y} – ${f==="1"?"1st":"2nd"} FN`;
-}
+};
 
-/* ================= SAVE ================= */
-function saveValue(code,field,value){
- store[code]=store[code]||{};
- store[code][field]=+value.replace(/[^0-9]/g,"")||0;
- saveStore(); renderTable();
-}
-function togglePaid(code,field,val){
- store[code]=store[code]||{};
- store[code][field]=val;
- saveStore(); renderTable();
-}
-
-/* ================= DASHBOARD ================= */
-function updateDashboard(){
- let dInv=0,dPend=0,dRem=0,dBor=0,dAVL=0;
- periods.forEach((p,i)=>{
-  const d=store[p[0]]||{};
-  if(i===ci){
-   const sl=d.sl||0,ai=d.ai||0,sg=d.sg||0;
-   const paid=(d.slp?sl:0)+(d.aip?ai:0)+(d.sgp?sg:0);
-   dInv=sl+ai+sg;
-   dPend=dInv-paid;
-   dAVL=d.avl||0;
-   dRem=dPend-dAVL;
-  }
-  dBor+=d.bor||0;
- });
- dInvEl.textContent=inr(dInv);
- dPendEl.textContent=inr(dPend);
- dRemEl.textContent=inr(dRem);
- dBorEl.textContent=inr(dBor);
- dAVLEl.textContent=inr(dAVL);
-}
-
-/* ================= TABLE ================= */
-const dInvEl=dInv,dPendEl=dPend,dRemEl=dRem,dBorEl=dBor,dAVLEl=dAVL;
-
-function renderTable(){
+/* ===== RENDER ===== */
+function render(){
  const tb=document.getElementById("tbody");
  const pf=document.getElementById("periodFilter");
- tb.innerHTML=""; pf.innerHTML='<option value="ALL">All Periods</option>';
- ci=periods.findIndex(p=>new Date(p[2])>=today);
+ tb.innerHTML="";pf.innerHTML='<option value="ALL">All Periods</option>';
 
- periods.forEach((p,i)=>{
+ let invT=0,paidT=0,remT=0,borT=0;
+
+ periods.forEach(p=>{
   const d=store[p[0]]||{};
-  const sl=d.sl||0,ai=d.ai||0,sg=d.sg||0,avl=d.avl||0,bor=d.bor||0;
-  const paid=(d.slp?sl:0)+(d.aip?ai:0)+(d.sgp?sg:0);
-  const inv=sl+ai+sg,rem=inv-paid-avl;
+  const sl=+d.sl||0,ai=+d.ai||0,sg=+d.sg||0;
+  const slp=d.slp,aip=d.aip,sgp=d.sgp;
+  const avl=+d.avl||0,bor=+d.bor||0;
+
+  const inv=sl+ai+sg;
+  const paid=(slp?sl:0)+(aip?ai:0)+(sgp?sg:0);
+  const rem=inv-paid-avl;
+
+  invT+=inv;paidT+=paid;remT+=rem;borT+=bor;
+
   const days=Math.ceil((new Date(p[2])-today)/86400000);
-  const a=inv?sl/inv*360:0,b=inv?(sl+ai)/inv*360:0;
+  const dcls=days<0?"days-over":days<15?"days-warn":"days-ok";
 
   const tr=document.createElement("tr");
-  tr.className=i<ci?"freeze":i===ci?"current":i===ci+1?"next":"freeze";
   tr.dataset.period=p[0];
   tr.innerHTML=`
-<td>${fnLabel(p[0])}</td>
+<td>${label(p[0])}</td>
 <td>${p[1]}</td>
 <td>${p[2]}</td>
-<td>${days}</td>
-<td class="${d.slp?'paidCell':'pendingCell'}"><input value="${sl}" onchange="saveValue('${p[0]}','sl',this.value)"></td>
-<td><button class="btn" onclick="togglePaid('${p[0]}','slp',1)">Paid</button>
-<button class="btn" onclick="togglePaid('${p[0]}','slp',0)">Pending</button></td>
-<td class="${d.aip?'paidCell':'pendingCell'}"><input value="${ai}" onchange="saveValue('${p[0]}','ai',this.value)"></td>
-<td><button class="btn" onclick="togglePaid('${p[0]}','aip',1)">Paid</button>
-<button class="btn" onclick="togglePaid('${p[0]}','aip',0)">Pending</button></td>
-<td class="${d.sgp?'paidCell':'pendingCell'}"><input value="${sg}" onchange="saveValue('${p[0]}','sg',this.value)"></td>
-<td><button class="btn" onclick="togglePaid('${p[0]}','sgp',1)">Paid</button>
-<button class="btn" onclick="togglePaid('${p[0]}','sgp',0)">Pending</button></td>
+<td class="${dcls}">${days}</td>
+
+<td class="${slp?"paidCell":"pendingCell"}"><input value="${sl}" onchange="setV('${p[0]}','sl',this.value)"></td>
+<td><button class="btn" onclick="setP('${p[0]}','slp',1)">Paid</button></td>
+
+<td class="${aip?"paidCell":"pendingCell"}"><input value="${ai}" onchange="setV('${p[0]}','ai',this.value)"></td>
+<td><button class="btn" onclick="setP('${p[0]}','aip',1)">Paid</button></td>
+
+<td class="${sgp?"paidCell":"pendingCell"}"><input value="${sg}" onchange="setV('${p[0]}','sg',this.value)"></td>
+<td><button class="btn" onclick="setP('${p[0]}','sgp',1)">Paid</button></td>
+
 <td>${inr(inv)}</td>
 <td>${inr(paid)}</td>
-<td><input value="${avl}" onchange="saveValue('${p[0]}','avl',this.value)"></td>
-<td><input value="${bor}" onchange="saveValue('${p[0]}','bor',this.value)"></td>
+<td><input value="${avl}" onchange="setV('${p[0]}','avl',this.value)"></td>
+<td><input value="${bor}" onchange="setV('${p[0]}','bor',this.value)"></td>
 <td>${inr(rem)}</td>
-<td><div class="donut" style="--a:${a}deg;--b:${b}deg"></div></td>
-<td><div class="mini"><div style="width:${inv?paid/inv*100:0}%"></div><div style="width:${inv?rem/inv*100:0}%"></div></div></td>`;
+
+<td><div class="donut" style="--a:${inv?sl/inv*360:0}deg;--b:${inv?(sl+ai)/inv*360:0}deg"></div></td>
+<td><div class="mini"><div style="width:${inv?paid/inv*100:0}%"></div><div style="width:${inv?rem/inv*100:0}%"></div></div></td>
+`;
   tb.appendChild(tr);
 
-  const opt=document.createElement("option");
-  opt.value=p[0]; opt.text=fnLabel(p[0]); pf.appendChild(opt);
+  const o=document.createElement("option");
+  o.value=p[0];o.text=label(p[0]);
+  pf.appendChild(o);
  });
- updateDashboard(); applyFilter();
+
+ document.getElementById("dInv").textContent=inr(invT);
+ document.getElementById("dPend").textContent=inr(invT-paidT);
+ document.getElementById("dRem").textContent=inr(remT);
+ document.getElementById("dBor").textContent=inr(borT);
+
+ document.getElementById("wInv").style.width="100%";
+ document.getElementById("wPend").style.width=(invT?((invT-paidT)/invT*100):0)+"%";
+ document.getElementById("wRem").style.width=(invT?(remT/invT*100):0)+"%";
 }
 
-/* ================= FILTER ================= */
+/* ===== SAVE ===== */
+function setV(c,f,v){
+ store[c]=store[c]||{};
+ store[c][f]=+v.replace(/\D/g,"")||0;
+ localStorage.cass=JSON.stringify(store);
+ render();
+}
+function setP(c,f,v){
+ store[c]=store[c]||{};
+ store[c][f]=v;
+ localStorage.cass=JSON.stringify(store);
+ render();
+}
 function applyFilter(){
  const v=document.getElementById("periodFilter").value;
  document.querySelectorAll("#tbody tr").forEach(r=>{
@@ -324,18 +304,23 @@ function applyFilter(){
  });
 }
 
-/* ================= PLANE ================= */
-const plane=document.getElementById("bgFlight");
-let x=-30,y=30;
+/* ===== THEME ===== */
+if(localStorage.theme==="light")document.body.classList.add("light");
+function toggleTheme(){
+ document.body.classList.toggle("light");
+ localStorage.theme=document.body.classList.contains("light")?"light":"dark";
+}
+
+/* ===== PLANE ===== */
+let x=-30,y=20;
 (function fly(){
- x+=25;if(x>120){x=-30;y=Math.random()*60}
+ x+=30;if(x>120){x=-30;y=Math.random()*60}
  plane.style.left=x+"vw";plane.style.top=y+"vh";
+ plane.style.transform=`rotate(${Math.random()*10-5}deg)`;
  setTimeout(fly,5000);
 })();
 
-/* ================= INIT ================= */
-renderTable();
+render();
 </script>
-
 </body>
 </html>
