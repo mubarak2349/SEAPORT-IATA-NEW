@@ -6,19 +6,27 @@
 
 <style>
 /* ===== Flying Logo (NO rectangle) ===== */
-.bg-flight{
- position:fixed;width:260px;height:110px;opacity:.14;
- pointer-events:none;z-index:0;
- clip-path:polygon(5% 50%,15% 35%,40% 30%,70% 20%,95% 50%,70% 80%,40% 70%,15% 65%);
- transition:transform 5s linear,top 5s linear,left 5s linear;
+.bg-flight {
+ position: fixed;
+ width: 260px;
+ height: 110px;
+ opacity: 0.14;
+ pointer-events: none;
+ z-index: 0;
+ clip-path: polygon(
+  5% 50%, 15% 35%, 40% 30%,
+  70% 20%, 95% 50%,
+  70% 80%, 40% 70%, 15% 65%
+ );
+ transition: transform 5s linear, top 5s linear, left 5s linear;
 }
-.logo{width:100%;height:100%;position:relative}
-.blue{position:absolute;width:55%;height:100%;background:#0a4fd6;
- clip-path:polygon(0 10%,85% 0,45% 100%,0 90%)}
-.white{position:absolute;width:70%;height:100%;left:30%;background:#fff;
- clip-path:polygon(20% 0,60% 0,40% 50%,60% 100%,20% 100%,40% 50%)}
-.dark{position:absolute;width:55%;height:100%;right:0;background:#2f2f2f;
- clip-path:polygon(15% 0,100% 50%,15% 100%)}
+.logo {width:100%;height:100%;position:relative;}
+.blue {position:absolute;width:55%;height:100%;background:#0a4fd6;
+ clip-path: polygon(0 10%,85% 0,45% 100%,0 90%);}
+.white {position:absolute;width:70%;height:100%;left:30%;background:white;
+ clip-path: polygon(20% 0,60% 0,40% 50%,60% 100%,20% 100%,40% 50%);}
+.dark {position:absolute;width:55%;height:100%;right:0;background:#2f2f2f;
+ clip-path: polygon(15% 0,100% 50%,15% 100%);}
 </style>
 
 <style>
@@ -27,59 +35,122 @@
  --txt:#e5e7eb;--muted:#9ca3af;
  --green:#22c55e;--amber:#f59e0b;--red:#ef4444;
  --blue:#38bdf8;--purple:#a78bfa;
- --current:#1e3a8a;--next:#0f766e
+ --current:#1e3a8a;--next:#0f766e;
 }
 .light{
  --bg:#f8fafc;--panel:#fff;--card:#fff;--border:#e5e7eb;
  --txt:#020617;--muted:#475569;
- --current:#eef2ff;--next:#ecfeff
+ --current:#eef2ff;--next:#ecfeff;
 }
 *{box-sizing:border-box}
 body{
- margin:0;font-family:system-ui,Segoe UI,Arial;
+ margin:0;
+ font-family:system-ui,Segoe UI,Arial;
  background:radial-gradient(circle at top,var(--card),var(--bg) 70%);
- color:var(--txt)
+ color:var(--txt);
 }
 header{
- display:flex;align-items:center;gap:12px;padding:16px 22px;
- background:var(--panel);position:sticky;top:0;z-index:10
+ display:flex;align-items:center;gap:12px;
+ padding:16px 22px;
+ background:var(--panel);
+ position:sticky;top:0;z-index:10;
 }
 header h3{margin:0;font-size:20px}
 .theme-btn{
- margin-left:auto;padding:6px 12px;border-radius:14px;
- border:1px solid var(--border);background:var(--card);cursor:pointer
+ margin-left:auto;
+ padding:6px 12px;
+ border-radius:14px;
+ border:1px solid var(--border);
+ background:var(--card);
+ color:var(--txt);
+ cursor:pointer;
+ font-size:12px;
 }
 .dashboard{
- padding:20px;display:grid;
- grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px
+ padding:20px;
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:16px;
 }
 .card{
  background:linear-gradient(180deg,var(--card),var(--bg));
- border-radius:18px;padding:16px
+ border-radius:18px;
+ padding:16px;
 }
 .card h4{margin:0;font-size:12px;color:var(--muted)}
 .card p{margin:6px 0;font-size:24px;font-weight:700}
-.wave{height:8px;border-radius:20px;background:var(--bg)}
-.wave span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--purple))}
+.wave{height:8px;border-radius:20px;background:var(--bg);overflow:hidden}
+.wave span{
+ display:block;height:100%;
+ background:linear-gradient(90deg,var(--blue),var(--purple));
+}
+.filter-bar{padding:0 20px 10px}
+select{
+ padding:6px 10px;
+ border-radius:10px;
+ background:var(--card);
+ color:var(--txt);
+ border:1px solid var(--border);
+}
 .container{padding:0 20px 30px}
-.table-wrap{background:var(--panel);border-radius:22px;overflow:auto}
+.table-wrap{
+ background:var(--panel);
+ border-radius:22px;
+ overflow:auto;
+}
 table{width:100%;border-collapse:collapse;font-size:12px}
-th,td{padding:8px;text-align:center;border-bottom:1px solid var(--border)}
-tr.freeze{opacity:.4}
+th{
+ padding:12px;
+ background:var(--panel);
+ border-bottom:1px solid var(--border);
+}
+td{
+ padding:8px;
+ border-bottom:1px solid var(--bg);
+ text-align:center;
+}
+tr.freeze{opacity:.45}
 tr.current{background:var(--current)}
 tr.next{background:var(--next)}
 input{
- width:85px;padding:4px;text-align:right;
- background:var(--bg);color:var(--txt);
- border:1px solid var(--border);border-radius:6px
+ width:85px;
+ padding:4px;
+ text-align:right;
+ background:var(--bg);
+ color:var(--txt);
+ border:1px solid var(--border);
+ border-radius:6px;
+ font-size:11px;
 }
-.btn{font-size:10px;padding:3px 6px;border-radius:6px;cursor:pointer}
+input:disabled{opacity:.4}
+.btn{
+ padding:3px 6px;
+ border-radius:6px;
+ border:1px solid var(--border);
+ background:linear-gradient(180deg,var(--card),var(--bg));
+ color:var(--txt);
+ font-size:9px;
+ cursor:pointer;
+ margin:1px;
+}
 .paidCell{background:rgba(34,197,94,.25)}
 .pendingCell{background:rgba(245,158,11,.25)}
 .days-ok{color:var(--green)}
 .days-warn{color:var(--amber)}
 .days-over{color:var(--red)}
-footer{text-align:center;padding:12px;opacity:.6}
+.donut{
+ width:34px;height:34px;border-radius:50%;
+ background:conic-gradient(
+  var(--green) 0deg,var(--green) var(--a),
+  var(--amber) var(--a),var(--amber) var(--b),
+  var(--blue) var(--b),var(--blue) 360deg
+ );
+ margin:auto;
+}
+.mini{display:flex;height:8px;border-radius:6px;overflow:hidden;background:var(--bg)}
+.mini div:nth-child(1){background:var(--green)}
+.mini div:nth-child(2){background:var(--amber)}
+footer{text-align:center;padding:14px;font-size:12px;opacity:.6}
 </style>
 </head>
 
@@ -94,122 +165,176 @@ footer{text-align:center;padding:12px;opacity:.6}
 </div>
 
 <header>
- <h3>SEAPORT (Air Division) – IATA CASS Payment Calendar</h3>
- <button class="theme-btn" onclick="toggleTheme()">🌙 / 🌞</button>
+ <h3>SEAPORT (Air division) - IATA Cass payment calendar</h3>
+ <button class="theme-btn" onclick="toggleTheme()">🌙 Mode of View 🌞</button>
 </header>
 
 <div class="dashboard">
- <div class="card"><h4>Invoice</h4><p id="dInv">₹0</p><div class="wave"><span id="wInv"></span></div></div>
- <div class="card"><h4>Pending</h4><p id="dPend">₹0</p><div class="wave"><span id="wPend"></span></div></div>
- <div class="card"><h4>Remaining</h4><p id="dRem">₹0</p><div class="wave"><span id="wRem"></span></div></div>
+ <div class="card"><h4>Current Period Invoice</h4><p id="dInv">₹0</p><div class="wave"><span id="wInv"></span></div></div>
+ <div class="card"><h4>Current Period Pending</h4><p id="dPend">₹0</p><div class="wave"><span id="wPend"></span></div></div>
+ <div class="card"><h4>Remaining Balance</h4><p id="dRem">₹0</p><div class="wave"><span id="wRem"></span></div></div>
+ <div class="card"><h4>Total Borrowed</h4><p id="dBor">₹0</p><div class="wave"><span id="wBor"></span></div></div>
+ <div class="card"><h4>AVL Balance</h4><p id="dAVL">₹0</p><div class="wave"><span id="wAVL"></span></div></div>
+</div>
+
+<div class="filter-bar">
+ <select id="periodFilter" onchange="applyFilter()">
+  <option value="ALL">All Periods</option>
+ </select>
 </div>
 
 <div class="container">
- <div class="table-wrap">
-  <table>
-   <thead>
-    <tr>
-     <th>Period</th><th>Invoice</th><th>Due</th><th>Days</th>
-     <th>SriLankan</th><th>Status</th>
-     <th>AirIndia</th><th>Status</th>
-     <th>Singapore</th><th>Status</th>
-     <th>Total</th><th>Paid</th><th>AVL</th><th>Borrowed</th><th>Remaining</th>
-    </tr>
-   </thead>
-   <tbody id="tbody"></tbody>
-  </table>
- </div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+ <th>Period</th><th>Invoice</th><th>Remittance</th><th>Days Left</th>
+ <th>Srilankan</th><th>Status</th>
+ <th>AirIndia</th><th>Status</th>
+ <th>Singapore</th><th>Status</th>
+ <th>Total</th><th>Paid</th><th>AVL</th><th>Borrowed</th>
+ <th>Remaining</th><th>Airline Split</th><th>Progress</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
 </div>
 
-<footer>Offline • Local Storage Enabled</footer>
+<footer>📦 Offline • Local Storage Enabled</footer>
 
 <script>
 /* ================= LOCAL STORAGE ================= */
-const LS_KEY="SEAPORT_CASS_LOCAL";
-let store=JSON.parse(localStorage.getItem(LS_KEY)||"{}");
-
-function saveLocal(){
- localStorage.setItem(LS_KEY,JSON.stringify(store));
-}
+const LS_KEY = "SEAPORT_CASS_LOCAL";
+let store = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
+function saveStore(){ localStorage.setItem(LS_KEY, JSON.stringify(store)); }
 
 /* ================= PERIODS ================= */
-const periods=[
+const periods = [
+ ["20251102F","2025-12-09","2025-12-30"],
  ["20251201F","2025-12-25","2026-01-14"],
  ["20251202F","2026-01-08","2026-01-30"],
  ["20260101F","2026-01-25","2026-02-16"]
 ];
-const today=new Date();
+let today = new Date(), ci = -1;
+
+/* ================= THEME ================= */
+if(localStorage.theme==="light")document.body.classList.add("light");
+function toggleTheme(){
+ document.body.classList.toggle("light");
+ localStorage.theme=document.body.classList.contains("light")?"light":"dark";
+}
 
 /* ================= UTILS ================= */
 function inr(x){return "₹"+(x||0).toLocaleString("en-IN")}
-function toggleTheme(){
- document.body.classList.toggle("light");
- localStorage.theme=document.body.classList.contains("light")?"light":"dark"
+function fnLabel(code){
+ const y=code.slice(0,4),m=code.slice(4,6),f=code.slice(6,7);
+ const mn=["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+ return `${mn[+m]} ${y} – ${f==="1"?"1st":"2nd"} FN`;
 }
-if(localStorage.theme==="light")document.body.classList.add("light");
+
+/* ================= SAVE ================= */
+function saveValue(code,field,value){
+ store[code]=store[code]||{};
+ store[code][field]=+value.replace(/[^0-9]/g,"")||0;
+ saveStore(); renderTable();
+}
+function togglePaid(code,field,val){
+ store[code]=store[code]||{};
+ store[code][field]=val;
+ saveStore(); renderTable();
+}
+
+/* ================= DASHBOARD ================= */
+function updateDashboard(){
+ let dInv=0,dPend=0,dRem=0,dBor=0,dAVL=0;
+ periods.forEach((p,i)=>{
+  const d=store[p[0]]||{};
+  if(i===ci){
+   const sl=d.sl||0,ai=d.ai||0,sg=d.sg||0;
+   const paid=(d.slp?sl:0)+(d.aip?ai:0)+(d.sgp?sg:0);
+   dInv=sl+ai+sg;
+   dPend=dInv-paid;
+   dAVL=d.avl||0;
+   dRem=dPend-dAVL;
+  }
+  dBor+=d.bor||0;
+ });
+ dInvEl.textContent=inr(dInv);
+ dPendEl.textContent=inr(dPend);
+ dRemEl.textContent=inr(dRem);
+ dBorEl.textContent=inr(dBor);
+ dAVLEl.textContent=inr(dAVL);
+}
 
 /* ================= TABLE ================= */
-function render(){
+const dInvEl=dInv,dPendEl=dPend,dRemEl=dRem,dBorEl=dBor,dAVLEl=dAVL;
+
+function renderTable(){
  const tb=document.getElementById("tbody");
- tb.innerHTML="";
- let invT=0,paidT=0,remT=0;
+ const pf=document.getElementById("periodFilter");
+ tb.innerHTML=""; pf.innerHTML='<option value="ALL">All Periods</option>';
+ ci=periods.findIndex(p=>new Date(p[2])>=today);
 
- periods.forEach(p=>{
+ periods.forEach((p,i)=>{
   const d=store[p[0]]||{};
-  const sl=d.sl||0,ai=d.ai||0,sg=d.sg||0;
+  const sl=d.sl||0,ai=d.ai||0,sg=d.sg||0,avl=d.avl||0,bor=d.bor||0;
   const paid=(d.slp?sl:0)+(d.aip?ai:0)+(d.sgp?sg:0);
-  const inv=sl+ai+sg;
-  const rem=inv-paid-(d.avl||0);
-  invT+=inv;paidT+=paid;remT+=rem;
+  const inv=sl+ai+sg,rem=inv-paid-avl;
+  const days=Math.ceil((new Date(p[2])-today)/86400000);
+  const a=inv?sl/inv*360:0,b=inv?(sl+ai)/inv*360:0;
 
-  tb.innerHTML+=`
-  <tr>
-   <td>${p[0]}</td>
-   <td>${p[1]}</td>
-   <td>${p[2]}</td>
-   <td>${Math.ceil((new Date(p[2])-today)/86400000)}</td>
-   <td><input value="${sl}" onchange="setVal('${p[0]}','sl',this.value)"></td>
-   <td><button onclick="setFlag('${p[0]}','slp')">Paid</button></td>
-   <td><input value="${ai}" onchange="setVal('${p[0]}','ai',this.value)"></td>
-   <td><button onclick="setFlag('${p[0]}','aip')">Paid</button></td>
-   <td><input value="${sg}" onchange="setVal('${p[0]}','sg',this.value)"></td>
-   <td><button onclick="setFlag('${p[0]}','sgp')">Paid</button></td>
-   <td>${inr(inv)}</td>
-   <td>${inr(paid)}</td>
-   <td><input value="${d.avl||0}" onchange="setVal('${p[0]}','avl',this.value)"></td>
-   <td><input value="${d.bor||0}" onchange="setVal('${p[0]}','bor',this.value)"></td>
-   <td>${inr(rem)}</td>
-  </tr>`;
+  const tr=document.createElement("tr");
+  tr.className=i<ci?"freeze":i===ci?"current":i===ci+1?"next":"freeze";
+  tr.dataset.period=p[0];
+  tr.innerHTML=`
+<td>${fnLabel(p[0])}</td>
+<td>${p[1]}</td>
+<td>${p[2]}</td>
+<td>${days}</td>
+<td class="${d.slp?'paidCell':'pendingCell'}"><input value="${sl}" onchange="saveValue('${p[0]}','sl',this.value)"></td>
+<td><button class="btn" onclick="togglePaid('${p[0]}','slp',1)">Paid</button>
+<button class="btn" onclick="togglePaid('${p[0]}','slp',0)">Pending</button></td>
+<td class="${d.aip?'paidCell':'pendingCell'}"><input value="${ai}" onchange="saveValue('${p[0]}','ai',this.value)"></td>
+<td><button class="btn" onclick="togglePaid('${p[0]}','aip',1)">Paid</button>
+<button class="btn" onclick="togglePaid('${p[0]}','aip',0)">Pending</button></td>
+<td class="${d.sgp?'paidCell':'pendingCell'}"><input value="${sg}" onchange="saveValue('${p[0]}','sg',this.value)"></td>
+<td><button class="btn" onclick="togglePaid('${p[0]}','sgp',1)">Paid</button>
+<button class="btn" onclick="togglePaid('${p[0]}','sgp',0)">Pending</button></td>
+<td>${inr(inv)}</td>
+<td>${inr(paid)}</td>
+<td><input value="${avl}" onchange="saveValue('${p[0]}','avl',this.value)"></td>
+<td><input value="${bor}" onchange="saveValue('${p[0]}','bor',this.value)"></td>
+<td>${inr(rem)}</td>
+<td><div class="donut" style="--a:${a}deg;--b:${b}deg"></div></td>
+<td><div class="mini"><div style="width:${inv?paid/inv*100:0}%"></div><div style="width:${inv?rem/inv*100:0}%"></div></div></td>`;
+  tb.appendChild(tr);
+
+  const opt=document.createElement("option");
+  opt.value=p[0]; opt.text=fnLabel(p[0]); pf.appendChild(opt);
  });
-
- document.getElementById("dInv").textContent=inr(invT);
- document.getElementById("dPend").textContent=inr(invT-paidT);
- document.getElementById("dRem").textContent=inr(remT);
+ updateDashboard(); applyFilter();
 }
 
-/* ================= ACTIONS ================= */
-function setVal(c,f,v){
- store[c]=store[c]||{};
- store[c][f]=+v||0;
- saveLocal();render();
+/* ================= FILTER ================= */
+function applyFilter(){
+ const v=document.getElementById("periodFilter").value;
+ document.querySelectorAll("#tbody tr").forEach(r=>{
+  r.style.display=(v==="ALL"||r.dataset.period===v)?"":"none";
+ });
 }
-function setFlag(c,f){
- store[c]=store[c]||{};
- store[c][f]=!store[c][f];
- saveLocal();render();
-}
-
-/* ================= INIT ================= */
-render();
 
 /* ================= PLANE ================= */
 const plane=document.getElementById("bgFlight");
-let x=-30,y=20;
+let x=-30,y=30;
 (function fly(){
- x+=20;if(x>120){x=-30;y=Math.random()*60}
+ x+=25;if(x>120){x=-30;y=Math.random()*60}
  plane.style.left=x+"vw";plane.style.top=y+"vh";
- setTimeout(fly,5000)
+ setTimeout(fly,5000);
 })();
+
+/* ================= INIT ================= */
+renderTable();
 </script>
 
 </body>
