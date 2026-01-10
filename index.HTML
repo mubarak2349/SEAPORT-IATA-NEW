@@ -13,265 +13,389 @@
 .dark-part{position:absolute;width:55%;height:100%;right:0;background:#1a1a1a;clip-path:polygon(15% 0,100% 50%,15% 100%)}
 
 /* ===== THEME ===== */
-:root{--bg:#020617;--panel:#020617;--card:#0b1220;--border:#1f2937;--txt:#e5e7eb;--muted:#9ca3af;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--blue:#38bdf8;--purple:#a78bfa;--current:#1e3a8a;--next:#0f766e}
+:root{--bg:#020617;--panel:#020617;--card:#0b1220;--border:#1f2937;--txt:#e5e7eb;--muted:#9ca3af;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--blue:#38bdf8;--purple:#a78bfa;--current:#1e3a8a;--next:#0f766e;--gradient-primary:linear-gradient(135deg,#38bdf8,#a78bfa);--gradient-success:linear-gradient(135deg,#22c55e,#16a34a);--gradient-warning:linear-gradient(135deg,#f59e0b,#d97706);--gradient-danger:linear-gradient(135deg,#ef4444,#dc2626);--shadow-lg:0 25px 80px rgba(0,0,0,.5);--shadow-xl:0 40px 120px rgba(0,0,0,.6)}
 .light{--bg:#f8fafc;--panel:#fff;--card:#fff;--border:#e5e7eb;--txt:#020617;--muted:#475569;--current:#eef2ff;--next:#ecfeff}
 
 *{box-sizing:border-box}
-body{margin:0;font-family:system-ui,Segoe UI,Arial;background:radial-gradient(circle at top,var(--card),var(--bg) 70%);color:var(--txt);position:relative}
+body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:radial-gradient(circle at top,var(--card),var(--bg) 70%);color:var(--txt);position:relative;line-height:1.5}
 
-/* ===== HEADER ===== */
-header{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;background:var(--panel);box-shadow:0 20px 60px rgba(0,0,0,.4);position:sticky;top:0;z-index:100}
-header h3{margin:0;font-size:22px}
-.header-right{display:flex;gap:8px;align-items:center}
-.theme-btn{padding:8px 14px;border-radius:14px;border:1px solid var(--border);background:var(--card);color:var(--txt);cursor:pointer;font-size:12px;transition:all .2s}
-.theme-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.3)}
-.version-badge{padding:4px 10px;border-radius:8px;font-size:11px;font-weight:600;background:#0066cc;color:white}
+/* ===== HEADER - PROFESSIONAL PORTAL UI ===== */
+header{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;background:linear-gradient(135deg,var(--panel),var(--card));box-shadow:var(--shadow-xl);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border)}
+header h3{margin:0;font-size:24px;font-weight:700;background:var(--gradient-primary);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px}
+.header-right{display:flex;gap:12px;align-items:center}
+.theme-btn{padding:10px 16px;border-radius:16px;border:2px solid var(--border);background:var(--card);color:var(--txt);cursor:pointer;font-size:13px;font-weight:500;transition:all .3s ease;backdrop-filter:blur(10px)}
+.theme-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:var(--blue)}
+.screenshot-btn{padding:10px 16px;border-radius:16px;border:2px solid var(--border);background:var(--gradient-warning);color:white;cursor:pointer;font-size:13px;font-weight:600;transition:all .3s ease;backdrop-filter:blur(10px)}
+.screenshot-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:var(--amber)}
+.version-badge{padding:8px 14px;border-radius:12px;font-size:12px;font-weight:700;background:linear-gradient(135deg,#0066cc,#1d4ed8);color:white;box-shadow:0 4px 20px rgba(0,102,204,.4);border:1px solid rgba(255,255,255,.1)}
 
 /* ===== AIRLINE MANAGER ===== */
-.airline-manager{padding:15px;background:var(--panel);border-radius:16px;margin:0 20px 20px 20px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
-.airline-manager h4{margin:0 0 12px 0;font-size:14px}
-.airline-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:15px}
-.airline-input{width:160px;padding:8px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--txt);font-size:12px}
-.add-airline-btn{background:var(--green);color:white;border-color:var(--green)}
-.remove-airline-btn{background:var(--red);color:white;border-color:var(--red)}
-.airline-list{display:flex;flex-wrap:wrap;gap:8px;align-items:center;max-width:100%}
-.airline-item{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:11px;font-weight:500}
-.airline-delete{cursor:pointer;color:var(--red);font-weight:600;font-size:16px;padding:4px;border-radius:4px;transition:all .2s;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
-.airline-delete:hover{background:var(--red);color:white}
+.airline-manager{padding:20px;background:var(--panel);border-radius:20px;margin:0 24px 24px 24px;box-shadow:var(--shadow-lg);border:1px solid var(--border)}
+.airline-manager h4{margin:0 0 16px 0;font-size:16px;font-weight:700;color:var(--txt)}
+.airline-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:20px}
+.airline-input{width:180px;padding:12px;border-radius:12px;background:var(--card);border:2px solid var(--border);color:var(--txt);font-size:13px;transition:all .3s}
+.airline-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(56,189,248,.2)}
+.add-airline-btn{background:var(--gradient-success);color:white;border-color:var(--green);font-weight:600}
+.remove-airline-btn{background:var(--gradient-danger);color:white;border-color:var(--red);font-weight:600}
+.airline-list{display:flex;flex-wrap:wrap;gap:10px;align-items:center;max-width:100%}
+.airline-item{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--card);border-radius:12px;border:2px solid var(--border);font-size:12px;font-weight:600;box-shadow:0 4px 15px rgba(0,0,0,.1)}
+.airline-delete{cursor:pointer;color:var(--red);font-weight:700;font-size:18px;padding:8px;border-radius:8px;transition:all .3s;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:rgba(239,68,68,.1)}
+.airline-delete:hover{background:var(--red);color:white;transform:scale(1.1)}
+
+/* ===== ENHANCED SUMMARY DASHBOARD ===== */
+.summary-dashboard{padding:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin:0 24px 24px}
+.summary-card{background:linear-gradient(145deg,var(--card),var(--bg));border-radius:24px;padding:32px;box-shadow:var(--shadow-xl);position:relative;overflow:hidden;border:1px solid var(--border);transition:transform .3s ease;text-align:center}
+.summary-card:hover{transform:translateY(-6px)}
+.summary-card::before{content:'';position:absolute;top:0;left:0;right:0;height:8px;background:var(--gradient-primary);box-shadow:0 2px 15px rgba(56,189,248,.4)}
+.summary-card h4{margin:0 0 20px 0;font-size:16px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1.2px}
+.summary-value{font-size:36px;font-weight:800;display:flex;align-items:baseline;gap:12px;line-height:1.2;justify-content:center;flex-wrap:wrap}
+.summary-metric{font-size:14px;font-weight:600;color:var(--muted);margin-top:8px;opacity:.9}
+.summary-progress{height:12px;border-radius:20px;background:var(--bg);overflow:hidden;margin:20px auto 0;width:200px;box-shadow:inset 0 2px 10px rgba(0,0,0,.4)}
+.summary-progress span{display:block;height:100%;background:var(--gradient-success);transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:20px;box-shadow:0 2px 8px rgba(34,197,94,.4)}
 
 /* ===== DASHBOARD ===== */
-.dashboard{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-.card{background:linear-gradient(180deg,var(--card),var(--bg));border-radius:18px;padding:20px;box-shadow:0 25px 70px rgba(0,0,0,.45);position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--purple))}
-.card h4{margin:0 0 12px 0;font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.card-value{font-size:26px;font-weight:700;display:flex;align-items:baseline;gap:8px}
-.wave{height:8px;border-radius:20px;background:var(--bg);overflow:hidden;margin-top:12px}
-.wave span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .3s ease}
+.dashboard{padding:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.card{background:linear-gradient(145deg,var(--card),var(--bg));border-radius:24px;padding:28px;box-shadow:var(--shadow-xl);position:relative;overflow:hidden;border:1px solid var(--border);transition:transform .3s ease}
+.card:hover{transform:translateY(-4px)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:var(--gradient-primary);box-shadow:0 2px 10px rgba(56,189,248,.3)}
+.card h4{margin:0 0 16px 0;font-size:14px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.card-value{font-size:28px;font-weight:800;display:flex;align-items:baseline;gap:12px;line-height:1.2}
+.wave{height:10px;border-radius:25px;background:var(--bg);overflow:hidden;margin-top:16px;box-shadow:inset 0 2px 8px rgba(0,0,0,.3)}
+.wave span{display:block;height:100%;background:var(--gradient-primary);transition:width .4s cubic-bezier(.4,0,.2,1);border-radius:25px}
 
 /* ===== CONTROL BAR ===== */
-.control-bar{padding:0 20px 20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--panel);border-radius:0 0 20px 20px;margin:0 -20px 20px -20px}
-select,input[type="search"],input[type="date"],input[type="number"]{padding:10px 14px;border-radius:12px;background:var(--card);color:var(--txt);border:1px solid var(--border);font-size:13px}
-#searchInput{width:240px}
-.btn{padding:10px 16px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(180deg,var(--card),var(--bg));color:var(--txt);font-size:12px;font-weight:500;cursor:pointer;margin:2px;transition:all .2s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
-.btn-success{background:var(--green);color:white;border-color:var(--green)}
-.btn-danger{background:var(--red);color:white;border-color:var(--red)}
-.btn-warning{background:var(--amber);color:white;border-color:var(--amber)}
+.control-bar{padding:0 24px 24px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:var(--panel);border-radius:0 0 24px 24px;margin:0 -24px 24px -24px;border:1px solid var(--border);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+select,input[type="search"],input[type="date"],input[type="number"]{padding:12px 18px;border-radius:16px;background:var(--card);color:var(--txt);border:2px solid var(--border);font-size:14px;font-weight:500;transition:all .3s;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+select:focus,input[type="search"]:focus,input[type="date"]:focus,input[type="number"]:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(56,189,248,.2)}
+#searchInput{width:280px}
+.btn{padding:12px 20px;border-radius:16px;border:2px solid var(--border);background:linear-gradient(145deg,var(--card),var(--bg));color:var(--txt);font-size:13px;font-weight:600;cursor:pointer;margin:4px;transition:all .3s;backdrop-filter:blur(10px);box-shadow:0 4px 15px rgba(0,0,0,.2)}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.btn-success{background:var(--gradient-success);color:white;border-color:var(--green)}
+.btn-danger{background:var(--gradient-danger);color:white;border-color:var(--red)}
+.btn-warning{background:var(--gradient-warning);color:white;border-color:var(--amber)}
 
 /* ===== MAIN TABLE ===== */
-.container{padding:0 20px 30px}
-.table-wrap{background:var(--panel);border-radius:22px;box-shadow:0 40px 120px rgba(0,0,0,.5);overflow:auto;max-height:70vh;border:1px solid var(--border)}
-table{width:100%;border-collapse:collapse;font-size:12px}
-th{padding:14px 8px;background:linear-gradient(180deg,var(--card),var(--bg));border-bottom:2px solid var(--border);text-transform:uppercase;font-weight:600;white-space:nowrap;position:sticky;top:0;z-index:10;color:var(--txt)}
-td{padding:12px 8px;border-bottom:1px solid var(--bg);text-align:center;position:relative}
-tr{transition:all .2s}
-tr:hover{background:rgba(255,255,255,.05)}
-tr.freeze{opacity:.5}
-tr.current{background:var(--current)!important}
-tr.next{background:var(--next)!important}
-tr.overdue{background:rgba(239,68,68,.12)!important}
+.container{padding:0 24px 36px}
+.table-wrap{background:var(--panel);border-radius:28px;box-shadow:var(--shadow-xl);overflow:auto;max-height:70vh;border:2px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{padding:16px 12px;background:linear-gradient(145deg,var(--card),var(--bg));border-bottom:3px solid var(--border);text-transform:uppercase;font-weight:700;white-space:nowrap;position:sticky;top:0;z-index:10;color:var(--txt);letter-spacing:.5px}
+td{padding:14px 12px;border-bottom:1px solid var(--bg);text-align:center;position:relative}
+tr{transition:all .3s ease}
+tr:hover{background:rgba(255,255,255,.08)}
+tr.freeze{opacity:.6}
+tr.current{background:var(--current)!important;box-shadow:inset 4px 0 var(--blue)}
+tr.next{background:var(--next)!important;box-shadow:inset 4px 0 var(--green)}
+tr.overdue{background:rgba(239,68,68,.15)!important;box-shadow:inset 4px 0 var(--red)}
 
-input{width:85px;padding:6px;text-align:right;background:var(--bg);color:var(--txt);border:1px solid var(--border);border-radius:8px;font-size:11px;transition:all .2s}
-input:focus{outline:none;box-shadow:0 0 0 3px rgba(56,189,248,.3)}
+input{width:90px;padding:10px;text-align:right;background:var(--bg);color:var(--txt);border:2px solid var(--border);border-radius:10px;font-size:12px;font-weight:500;transition:all .3s;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+input:focus{outline:none;box-shadow:0 0 0 4px rgba(56,189,248,.3)}
 
-.cell-paid{background:rgba(34,197,94,.15)}
-.cell-pending{background:rgba(245,158,11,.15)}
-.cell-overdue{background:rgba(239,68,68,.15)}
-.days-ok{color:var(--green);font-weight:600}
-.days-warn{color:var(--amber);font-weight:600}
-.days-overdue{color:var(--red);font-weight:700}
-.donut{width:30px;height:30px;border-radius:50%;margin:auto;background:conic-gradient(var(--green) 0deg,var(--green) var(--a),var(--amber) var(--a),var(--amber) var(--b),var(--blue) var(--b),var(--blue) 360deg)}
-.mini{display:flex;height:10px;border-radius:6px;overflow:hidden;background:var(--bg);margin:auto}
-.mini div:nth-child(1){background:var(--green);transition:width .3s}
-.mini div:nth-child(2){background:var(--amber)}
+.cell-paid{background:rgba(34,197,94,.2);border-radius:8px}
+.cell-pending{background:rgba(245,158,11,.2);border-radius:8px}
+.cell-overdue{background:rgba(239,68,68,.2);border-radius:8px}
+.days-ok{color:var(--green);font-weight:700;font-size:14px}
+.days-warn{color:var(--amber);font-weight:700;font-size:14px}
+.days-overdue{color:var(--red);font-weight:800;font-size:14px}
+.donut{width:36px;height:36px;border-radius:50%;margin:auto;background:conic-gradient(var(--green) 0deg,var(--green) var(--a),var(--amber) var(--a),var(--amber) var(--b),var(--blue) var(--b),var(--blue) 360deg);box-shadow:0 4px 15px rgba(0,0,0,.3)}
+.mini{display:flex;height:12px;border-radius:8px;overflow:hidden;background:var(--bg);margin:auto;box-shadow:inset 0 2px 6px rgba(0,0,0,.3)}
+.mini div:nth-child(1){background:var(--gradient-success);transition:width .4s ease;border-radius:8px 0 0 8px}
+.mini div:nth-child(2){background:var(--gradient-danger);border-radius:0 8px 8px 0}
 
-/* ===== FLOATING PANELS ===== */
-.floating-panel{position:fixed;top:110px;background:var(--panel);border-radius:16px;padding:20px;border:1px solid var(--border);box-shadow:0 25px 80px rgba(0,0,0,.5);z-index:200;font-size:12px;max-width:360px;display:none}
-#configPanel{right:20px}
-#exportPanel{left:20px}
-#summaryPanel{bottom:30px;right:30px;max-height:320px;overflow-y:auto;width:380px}
-.panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
-.panel-title{font-weight:700;font-size:14px}
-.panel-close{cursor:pointer;font-size:18px;color:var(--muted);padding:4px;transition:all .2s}
-.panel-close:hover{color:var(--red)}
-.config-row,.export-row{display:flex;gap:12px;align-items:center;margin:12px 0;flex-wrap:wrap}
+/* ===== FLOATING PANELS - PROFESSIONAL ENHANCEMENT ===== */
+.floating-panel{position:fixed;top:120px;background:linear-gradient(145deg,var(--panel),var(--card));border-radius:24px;padding:28px;border:2px solid var(--border);box-shadow:var(--shadow-xl);z-index:200;font-size:13px;max-width:420px;display:none;backdrop-filter:blur(20px);border-image:linear-gradient(45deg,var(--blue),var(--purple)) 1}
+#configPanel{right:28px}
+#exportPanel{left:28px}
+#summaryPanel{bottom:40px;right:40px;max-height:380px;overflow-y:auto;width:440px;border-radius:28px;box-shadow:0 50px 100px rgba(0,0,0,.6)}
+.panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid var(--border);position:relative}
+.panel-header::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:3px;background:var(--gradient-primary)}
+.panel-title{font-weight:800;font-size:18px;background:var(--gradient-primary);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.3px}
+.panel-close{cursor:pointer;font-size:24px;color:var(--muted);padding:12px;border-radius:12px;transition:all .3s;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:rgba(156,163,175,.1)}
+.panel-close:hover{color:var(--red);background:var(--gradient-danger);transform:rotate(90deg)}
+.config-row,.export-row{display:flex;gap:16px;align-items:center;margin:16px 0;flex-wrap:wrap}
+.floating-panel input{padding:12px 16px;border-radius:12px;font-size:13px}
+
+/* ===== PROFESSIONAL SUMMARY PANEL ENHANCEMENT ===== */
+.summary-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin:20px 0 24px 0}
+.metric-card{background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border-radius:20px;padding:20px;border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(10px);transition:transform .3s}
+.metric-card:hover{transform:translateY(-4px)}
+.metric-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.metric-value{font-size:24px;font-weight:800;line-height:1.2}
+.metric-positive{color:var(--green)}
+.metric-negative{color:var(--red)}
+.metric-neutral{color:var(--blue)}
+
+.summary-stats{display:grid;gap:16px;margin-top:20px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:16px;background:linear-gradient(145deg,rgba(255,255,255,.03),transparent);border-radius:16px;border:1px solid rgba(255,255,255,.08);transition:transform .2s}
+.stat-row:hover{transform:translateX(8px)}
+.stat-label{font-weight:600;font-size:14px}
+.stat-value{font-weight:800;font-size:18px}
+.stat-highlight{font-size:22px !important}
 
 /* ===== NOTIFICATIONS ===== */
-.notification{position:fixed;top:30px;right:30px;background:var(--green);color:white;padding:16px 24px;border-radius:16px;box-shadow:0 15px 40px rgba(0,0,0,.4);z-index:300;display:none;font-size:14px;font-weight:500;max-width:400px;border-left:4px solid white}
-.status-badge{padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600}
-.status-good{background:var(--green);color:white}
-.status-warning{background:var(--amber);color:white}
-.status-danger{background:var(--red);color:white}
+.notification{position:fixed;top:40px;right:40px;background:var(--gradient-success);color:white;padding:20px 28px;border-radius:20px;box-shadow:var(--shadow-xl);z-index:300;display:none;font-size:15px;font-weight:600;max-width:450px;border-left:6px solid rgba(255,255,255,.9);backdrop-filter:blur(20px);border-right:1px solid rgba(255,255,255,.2)}
+.status-badge{padding:10px 18px;border-radius:24px;font-size:13px;font-weight:700;box-shadow:0 4px 15px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.2)}
+.status-good{background:var(--gradient-success);color:white}
+.status-warning{background:var(--gradient-warning);color:white}
+.status-danger{background:var(--gradient-danger);color:white}
 
-footer{text-align:center;padding:20px;font-size:12px;background:var(--panel);margin:0 -20px -20px -20px;border-radius:0 0 24px 24px;border-top:1px solid var(--border)}
-.footer-credit{font-size:11px;margin-top:8px;opacity:.8}
+/* ===== CAPTURE MODE ===== */
+.capture-mode{filter:brightness(0.9) contrast(1.1);transition:all .3s ease}
+.capture-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.8);z-index:9999;display:none;align-items:center;justify-content:center}
+.capture-preview{max-width:90vw;max-height:90vh;border-radius:20px;box-shadow:0 0 100px rgba(255,255,255,.3);transform:scale(0.95);transition:transform .3s ease}
+.capture-overlay.active .capture-preview{transform:scale(1)}
 
-/* ===== SUMMARY PANEL ENHANCED ===== */
-.summary-item{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
-.summary-item:last-child{border-bottom:none}
-.summary-label{font-weight:500}
-.summary-value{font-weight:700;font-size:14px}
-.summary-highlight{color:var(--green);font-size:16px}
+footer{text-align:center;padding:28px;font-size:13px;background:linear-gradient(145deg,var(--panel),var(--card));margin:0 -24px -24px -24px;border-radius:0 0 28px 28px;border-top:2px solid var(--border);box-shadow:0 -8px 32px rgba(0,0,0,.3)}
+.footer-credit{font-size:12px;margin-top:12px;opacity:.85;font-weight:500}
 </style>
 </head>
 
 <body>
 
 <div class="seaport-logo">
- <div class="logo-shape">
-  <div class="blue-part"></div>
-  <div class="white-part"></div>
-  <div class="dark-part"></div>
- </div>
+<div class="logo-shape">
+<div class="blue-part"></div>
+<div class="white-part"></div>
+<div class="dark-part"></div>
+</div>
 </div>
 
 <header>
- <h3>SEAPORT AIR DIVISION – IATA CASS ENTERPRISE</h3>
- <div class="header-right">
-  <div class="status-badge" id="globalStatus">Loading...</div>
-  <div class="version-badge">
-   Dev by Mcode 3.1<br>
-   <span style="font-size:10px">Founder Mubarak</span>
-  </div>
-  <button class="theme-btn" onclick="toggleTheme()">🌙 / 🌞</button>
- </div>
+<h3>SEAPORT AIR DIVISION – IATA CASS ENTERPRISE</h3>
+<div class="header-right">
+<div class="status-badge" id="globalStatus">Loading...</div>
+<button class="screenshot-btn" onclick="captureScreenshot()" title="📸 Screenshot">📸</button>
+<div class="version-badge">
+Dev by Mcode 3.2<br>
+</div>
+<button class="theme-btn" onclick="toggleTheme()">🌙 / 🌞</button>
+</div>
 </header>
+
+<!-- ENHANCED SUMMARY DASHBOARD -->
+<div class="summary-dashboard" id="summaryDashboard">
+<div class="summary-card">
+<h4>Total Invoice Value</h4>
+<div class="summary-value" id="sumTotalInvBig">₹0</div>
+<div class="summary-metric">All Periods Combined</div>
+<div class="summary-progress"><span id="sumInvProgress" style="width:0%"></span></div>
+</div>
+<div class="summary-card">
+<h4>Collection Achieved</h4>
+<div class="summary-value metric-positive" id="sumTotalPaidBig">₹0</div>
+<div class="summary-metric" id="sumCollectionRateBig">0%</div>
+<div class="summary-progress"><span id="sumPaidProgress" style="width:0%"></span></div>
+</div>
+<div class="summary-card">
+<h4>Outstanding Balance</h4>
+<div class="summary-value metric-negative" id="sumTotalRemBig">₹0</div>
+<div class="summary-metric">Immediate Action Required</div>
+<div class="summary-progress"><span id="sumRemProgress" style="width:0%"></span></div>
+</div>
+<div class="summary-card">
+<h4>Overdue Periods</h4>
+<div class="summary-value" id="sumOverdueCountBig">0</div>
+<div class="summary-metric" id="sumOverdueRisk">Low Risk</div>
+<div class="summary-progress"><span id="sumOverdueProgress" style="width:0%"></span></div>
+</div>
+</div>
 
 <!-- AIRLINE MANAGER -->
 <div class="airline-manager">
- <h4>Airline Manager <span id="airlineCount">(3 Airlines)</span></h4>
- <div class="airline-controls">
-  <input id="newAirlineName" class="airline-input" placeholder="Airline Name" maxlength="15">
-  <input id="newAirlineCode" class="airline-input" placeholder="Code (2 letters)" maxlength="2" style="width:110px">
-  <button class="btn add-airline-btn" onclick="addAirline()">➕ Add</button>
-  <button class="btn" onclick="resetAirlines()">🔄 Reset</button>
- </div>
- <div class="airline-list" id="airlineList"></div>
+<h4>Airline Manager <span id="airlineCount">(3 Airlines)</span></h4>
+<div class="airline-controls">
+<input id="newAirlineName" class="airline-input" placeholder="Airline Name" maxlength="15">
+<input id="newAirlineCode" class="airline-input" placeholder="Code (2 letters)" maxlength="2" style="width:120px">
+<button class="btn add-airline-btn" onclick="addAirline()">➕ Add</button>
+<button class="btn" onclick="resetAirlines()">🔄 Reset</button>
+</div>
+<div class="airline-list" id="airlineList"></div>
 </div>
 
 <!-- DASHBOARD -->
 <div class="dashboard">
- <div class="card"><h4>Current Period</h4><div class="card-value"><span id="dInv">₹0</span></div><div class="wave"><span id="wInv"></span></div></div>
- <div class="card"><h4>Pending Amount</h4><div class="card-value"><span id="dPend">₹0</span></div><div class="wave"><span id="wPend"></span></div></div>
- <div class="card"><h4>Remaining</h4><div class="card-value"><span id="dRem">₹0</span></div><div class="wave"><span id="wRem"></span></div></div>
- <div class="card"><h4>Total Borrowed</h4><div class="card-value"><span id="dBor">₹0</span></div><div class="wave"><span id="wBor"></span></div></div>
- <div class="card"><h4>AVL Balance</h4><div class="card-value"><span id="dAVL">₹0</span></div><div class="wave"><span id="wAVL"></span></div></div>
- <div class="card"><h4>Overdue Amount</h4><div class="card-value"><span id="dOver">₹0</span></div><div class="wave"><span id="wOver"></span></div></div>
+<div class="card"><h4>Current Period</h4><div class="card-value"><span id="dInv">₹0</span></div><div class="wave"><span id="wInv"></span></div></div>
+<div class="card"><h4>Pending Amount</h4><div class="card-value"><span id="dPend">₹0</span></div><div class="wave"><span id="wPend"></span></div></div>
+<div class="card"><h4>Remaining</h4><div class="card-value"><span id="dRem">₹0</span></div><div class="wave"><span id="wRem"></span></div></div>
+<div class="card"><h4>Total Borrowed</h4><div class="card-value"><span id="dBor">₹0</span></div><div class="wave"><span id="wBor"></span></div></div>
+<div class="card"><h4>AVL Balance</h4><div class="card-value"><span id="dAVL">₹0</span></div><div class="wave"><span id="wAVL"></span></div></div>
+<div class="card"><h4>Overdue Amount</h4><div class="card-value"><span id="dOver">₹0</span></div><div class="wave"><span id="wOver"></span></div></div>
 </div>
 
 <!-- CONTROL BAR -->
 <div class="control-bar">
- <select id="periodFilter" onchange="applyFilter()">
-  <option value="ALL">All Periods (28)</option>
- </select>
- <input type="search" id="searchInput" placeholder="Search periods/invoices..." oninput="applySearch()">
- <input type="date" id="customDate" onchange="setCustomDate(this.value)">
- <button class="btn" onclick="toggleExportPanel()">📊 Export</button>
- <button class="btn btn-success" onclick="bulkMarkPaid()">✓ Bulk Paid</button>
- <button class="btn btn-warning" onclick="showSummary()">📈 Summary</button>
- <button class="btn btn-danger" onclick="confirmReset()">🗑️ Reset All</button>
+<select id="periodFilter" onchange="applyFilter()">
+<option value="ALL">All Periods (28)</option>
+</select>
+<input type="search" id="searchInput" placeholder="Search periods/invoices..." oninput="applySearch()">
+<input type="date" id="customDate" onchange="setCustomDate(this.value)">
+<button class="btn" onclick="toggleExportPanel()">📊 Export</button>
+<button class="btn btn-success" onclick="bulkMarkPaid()">✓ Bulk Paid</button>
+<button class="btn btn-warning" onclick="showSummary()">📈 Details</button>
+<button class="btn btn-danger" onclick="confirmReset()">🗑️ Reset All</button>
 </div>
 
 <div class="container">
- <div class="table-wrap">
-  <table id="mainTable">
-   <thead id="tableHead">
-    <tr>
-     <th>Period</th><th>Invoice</th><th>Remittance</th><th>Days</th>
-    </tr>
-   </thead>
-   <tbody id="tbody"></tbody>
-  </table>
- </div>
+<div class="table-wrap">
+<table id="mainTable">
+<thead id="tableHead">
+<tr>
+<th>Period</th><th>Invoice</th><th>Remittance</th><th>Days</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+</div>
+
+<!-- CAPTURE OVERLAY -->
+<div class="capture-overlay" id="captureOverlay">
+<img class="capture-preview" id="capturePreview">
+<div style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;gap:16px;">
+<button class="btn btn-success" onclick="downloadScreenshot()" style="padding:16px 32px;font-size:16px">💾 Download</button>
+<button class="btn" onclick="closeCapture()" style="padding:16px 32px;font-size:16px">✕ Close</button>
+</div>
 </div>
 
 <!-- CONFIG PANEL -->
 <div class="floating-panel" id="configPanel">
- <div class="panel-header">
-  <div class="panel-title">⚙️ Configuration</div>
-  <span class="panel-close" onclick="toggleConfig()">✕</span>
- </div>
- <div class="config-row">
-  <label>Freeze Days:</label>
-  <input id="freezeDays" type="number" value="2" min="0" onchange="saveConfig()">
- </div>
- <div class="config-row">
-  <button class="btn btn-success" onclick="backupData()" style="flex:1">💾 Backup Data</button>
- </div>
+<div class="panel-header">
+<div class="panel-title">⚙️ Configuration</div>
+<span class="panel-close" onclick="toggleConfig()">✕</span>
+</div>
+<div class="config-row">
+<label>Freeze Days:</label>
+<input id="freezeDays" type="number" value="2" min="0" onchange="saveConfig()">
+</div>
+<div class="config-row">
+<button class="btn btn-success" onclick="backupData()" style="flex:1">💾 Backup Data</button>
+</div>
 </div>
 
 <!-- EXPORT PANEL -->
 <div class="floating-panel" id="exportPanel">
- <div class="panel-header">
-  <div class="panel-title">📊 Export Data</div>
-  <span class="panel-close" onclick="toggleExportPanel()">✕</span>
- </div>
- <div class="export-row">
-  <button class="btn" onclick="exportCSV()" style="flex:1">📄 CSV Export</button>
-  <button class="btn" onclick="exportJSON()" style="flex:1">📋 JSON Export</button>
- </div>
- <div class="export-row">
-  <button class="btn" onclick="copyTable()" style="flex:1">📋 Copy Table</button>
- </div>
+<div class="panel-header">
+<div class="panel-title">📊 Export Data</div>
+<span class="panel-close" onclick="toggleExportPanel()">✕</span>
+</div>
+<div class="export-row">
+<button class="btn" onclick="exportCSV()" style="flex:1">📄 CSV Export</button>
+<button class="btn" onclick="exportJSON()" style="flex:1">📋 JSON Export</button>
+</div>
+<div class="export-row">
+<button class="btn" onclick="copyTable()" style="flex:1">📋 Copy Table</button>
+</div>
 </div>
 
-<!-- SUMMARY PANEL -->
+<!-- PROFESSIONAL SUMMARY PANEL -->
 <div class="floating-panel" id="summaryPanel">
- <div class="panel-header">
-  <div class="panel-title">📈 Payment Summary</div>
-  <span class="panel-close" onclick="hideSummary()">✕</span>
- </div>
- <div id="summaryContent">
-  <div class="summary-item">
-   <span class="summary-label">Total Invoice Amount:</span>
-   <span class="summary-value summary-highlight" id="sumTotalInv">₹0</span>
-  </div>
-  <div class="summary-item">
-   <span class="summary-label">Total Paid Amount:</span>
-   <span class="summary-value summary-highlight" id="sumTotalPaid">₹0</span>
-  </div>
-  <div class="summary-item">
-   <span class="summary-label">Collection Rate:</span>
-   <span class="summary-value" id="sumCollectionRate">0%</span>
-  </div>
-  <div class="summary-item">
-   <span class="summary-label">Total Remaining:</span>
-   <span class="summary-value" style="color:var(--red)" id="sumTotalRem">₹0</span>
-  </div>
-  <div class="summary-item">
-   <span class="summary-label">Overdue Periods:</span>
-   <span class="summary-value" style="color:var(--red)" id="sumOverdueCount">0</span>
-  </div>
-  <div class="summary-item">
-   <span class="summary-label">Total Borrowed:</span>
-   <span class="summary-value" id="sumTotalBor">₹0</span>
-  </div>
- </div>
+<div class="panel-header">
+<div class="panel-title">📈 Executive Payment Summary</div>
+<span class="panel-close" onclick="hideSummary()">✕</span>
+</div>
+
+<div id="summaryContent">
+<!-- KEY METRICS GRID -->
+<div class="summary-metrics">
+<div class="metric-card">
+<div class="metric-label">Total Invoice Value</div>
+<div class="metric-value stat-highlight" id="sumTotalInv">₹0</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Collected Amount</div>
+<div class="metric-value metric-positive stat-highlight" id="sumTotalPaid">₹0</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Collection Rate</div>
+<div class="metric-value metric-positive" id="sumCollectionRate">0%</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Outstanding Balance</div>
+<div class="metric-value metric-negative stat-highlight" id="sumTotalRem">₹0</div>
+</div>
+</div>
+
+<!-- DETAILED STATS -->
+<div class="summary-stats">
+<div class="stat-row">
+<span class="stat-label">Total Borrowed Funds</span>
+<span class="stat-value" id="sumTotalBor">₹0</span>
+</div>
+<div class="stat-row">
+<span class="stat-label">Overdue Periods</span>
+<span class="stat-value metric-negative" id="sumOverdueCount">0</span>
+</div>
+<div class="stat-row">
+<span class="stat-label">Active Airlines</span>
+<span class="stat-value metric-positive" id="sumAirlineCount">3</span>
+</div>
+<div class="stat-row">
+<span class="stat-label">Total Periods</span>
+<span class="stat-value" id="sumPeriodCount">28</span>
+</div>
+</div>
+</div>
 </div>
 
 <div class="notification" id="notification"></div>
 
 <footer>
- Airlines: <strong><span id="airlineCountFooter">3</span></strong> | 
- Periods: <strong><span id="periodCount">28</span></strong> | 
- Ctrl+C=Config | Ctrl+E=Export | Ctrl+S=Summary
- <div class="footer-credit">
-  Dev by Mcode 3.1 | Founder Mubarak © 2026
- </div>
+Airlines: <strong><span id="airlineCountFooter">3</span></strong> | 
+Periods: <strong><span id="periodCount">28</span></strong> | 
+Summary: <strong id="footerSummary">Loading...</strong>
+<div class="footer-credit">
+📸 Screenshot | Dev by Mcode 3.2 | Founder Mubarak © 2026
+</div>
 </footer>
 
 <script>
 /* ================= GLOBAL STATE ================= */
-const STORAGE_KEY="SEAPORT_CASS_V3_1",AIRLINE_KEY="SEAPORT_AIRLINES";
+const STORAGE_KEY="SEAPORT_CASS_V3_2",AIRLINE_KEY="SEAPORT_AIRLINES";
 let store={},today=new Date(),ci=-1,airlines=['SL','AI','SG'],airlineNames={'SL':'Srilankan','AI':'AirIndia','SG':'Singapore'};
 let config={freezeDays:2,autoSave:true,customDate:null};
 
 /* ================= UTILS ================= */
 const inr=x=>"₹"+(x||0).toLocaleString("en-IN"),pct=(a,b)=>b?(a/b*100).toFixed(1)+"%":"0%";
 function fnLabel(c){const y=c.slice(0,4),m=c.slice(4,6),f=c[6];const mn=["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];return`${mn[+m]} ${y} – ${f==="1"?"1st":"2nd"} FN`;}
-function showNotification(msg,type="success",duration=3000){const notif=document.getElementById("notification");notif.textContent=msg;notif.style.background=type==="success"?`var(--green)`:type==="warning"?`var(--amber)`:`var(--red)`;notif.style.display="block";setTimeout(()=>notif.style.display="none",duration);}
+function showNotification(msg,type="success",duration=3000){const notif=document.getElementById("notification");notif.textContent=msg;notif.style.background=type==="success"?`var(--gradient-success)`:type==="warning"?`var(--gradient-warning)`:`var(--gradient-danger)`;notif.style.display="block";setTimeout(()=>notif.style.display="none",duration);}
 function calcDays(remDate){return Math.ceil((new Date(remDate)-(config.customDate?new Date(config.customDate):today))/86400000);}
 function calcRemaining(period){const d=store[period]||{},totalInv=airlines.reduce((sum,code)=>sum+(+d[code]||0),0),totalPaid=airlines.reduce((sum,code)=>sum+(d[code+'p']?(+d[code]||0):0),0);return totalInv-totalPaid-(+d.avl||0);}
+
+/* ================= SCREENSHOT FUNCTIONALITY ================= */
+function captureScreenshot(){
+  document.body.classList.add('capture-mode');
+  html2canvas(document.body, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: null,
+    width: document.body.scrollWidth,
+    height: document.body.scrollHeight,
+    logging: false,
+    allowTaint: true
+  }).then(canvas => {
+    document.body.classList.remove('capture-mode');
+    const preview = document.getElementById('capturePreview');
+    preview.src = canvas.toDataURL('image/png');
+    document.getElementById('captureOverlay').classList.add('active');
+  }).catch(err => {
+    document.body.classList.remove('capture-mode');
+    showNotification('Screenshot failed - try again', 'danger');
+    console.error('Screenshot error:', err);
+  });
+}
+
+function downloadScreenshot(){
+  const canvas = document.querySelector('#capturePreview').src;
+  const link = document.createElement('a');
+  link.download = `Seaport_CASS_${new Date().toISOString().slice(0,10)}.png`;
+  link.href = canvas;
+  link.click();
+  closeCapture();
+  showNotification('Screenshot saved!', 'success');
+}
+
+function closeCapture(){
+  document.getElementById('captureOverlay').classList.remove('active');
+}
 
 /* ================= AIRLINE MANAGEMENT ================= */
 function loadAirlines(){const saved=localStorage.getItem(AIRLINE_KEY);if(saved){const data=JSON.parse(saved);airlines=data.airlines;airlineNames=data.names;}renderAirlineList();updateAirlineUI();}
@@ -280,12 +404,13 @@ function renderAirlineList(){const list=document.getElementById('airlineList');l
 function addAirline(){const name=document.getElementById('newAirlineName').value.trim(),code=document.getElementById('newAirlineCode').value.trim().toUpperCase();if(!name||!code||code.length!==2||airlines.includes(code)){showNotification("Invalid code or duplicate", "danger");return;}airlines.push(code);airlineNames[code]=name;document.getElementById('newAirlineName').value='';document.getElementById('newAirlineCode').value='';saveAirlines();showNotification(`${name} (${code}) added`, "success");}
 function deleteAirline(index){if(airlines.length<=1){showNotification("Must keep at least 1 airline", "danger");return;}if(confirm(`Delete ${airlineNames[airlines[index]]} (${airlines[index]})?`)){airlines.splice(index,1);delete airlineNames[airlines[index]];saveAirlines();showNotification("Airline deleted", "warning");}}
 function resetAirlines(){if(confirm("Reset to default airlines?")){airlines=['SL','AI','SG'];airlineNames={'SL':'Srilankan','AI':'AirIndia','SG':'Singapore'};saveAirlines();showNotification("Default airlines restored", "success");}}
-function updateAirlineUI(){document.getElementById('airlineCount').textContent=`(${airlines.length} Airlines)`;document.getElementById('airlineCountFooter').textContent=airlines.length;}
+function updateAirlineUI(){document.getElementById('airlineCount').textContent=`(${airlines.length} Airlines)`;document.getElementById('airlineCountFooter').textContent=airlines.length;document.getElementById('sumAirlineCount').textContent=airlines.length;}
 
 /* ================= TABLE OPERATIONS ================= */
-function renderTableHeader(){const thead=document.getElementById('tableHead'),existingRows=thead.querySelectorAll('tr');existingRows.forEach(row=>row.remove());const headerRow=document.createElement('tr');headerRow.innerHTML='<th>Period</th><th>Invoice</th><th>Remittance</th><th>Days</th>';airlines.forEach(code=>{const th1=document.createElement('th');th1.innerHTML=`${airlineNames[code]}<br><small style="font-size:9px;opacity:.7">${code}</small>`;headerRow.appendChild(th1);const th2=document.createElement('th');th2.textContent='Status';headerRow.appendChild(th2);});headerRow.innerHTML+='<th>Total</th><th>Paid</th><th>AVL</th><th>Borrowed</th><th>Remaining</th><th>Split</th><th>Progress</th>';thead.appendChild(headerRow);}
+function renderTableHeader(){const thead=document.getElementById('tableHead'),existingRows=thead.querySelectorAll('tr');existingRows.forEach(row=>row.remove());const headerRow=document.createElement('tr');headerRow.innerHTML='<th>Period</th><th>Invoice</th><th>Remittance</th><th>Days</th>';airlines.forEach(code=>{const th1=document.createElement('th');th1.innerHTML=`${airlineNames[code]}<br><small style="font-size:10px;opacity:.7">${code}</small>`;headerRow.appendChild(th1);const th2=document.createElement('th');th2.textContent='Status';headerRow.appendChild(th2);});headerRow.innerHTML+='<th>Total</th><th>Paid</th><th>AVL</th><th>Borrowed</th><th>Remaining</th><th>Split</th><th>Progress</th>';thead.appendChild(headerRow);}
 
-function renderTable(){tbody.innerHTML="";periodFilter.innerHTML='<option value="ALL">All Periods (28)</option>';ci=periods.findIndex(p=>calcDays(p[2])>=0);renderTableHeader();periods.forEach((p,i)=>{const d=store[p[0]]||{},days=calcDays(p[2]),isOverdue=days<0,totalInv=airlines.reduce((sum,code)=>sum+(+d[code]||0),0),totalPaid=airlines.reduce((sum,code)=>sum+(d[code+'p']?(+d[code]||0):0),0),rem=totalInv-totalPaid-(+d.avl||0);const tr=document.createElement("tr");tr.dataset.period=p[0];tr.className=isOverdue?"overdue":i<ci?"freeze":i===ci?"current":i===ci+1?"next":"";let rowHTML=`<td>${fnLabel(p[0])}</td><td>${p[1]}</td><td>${p[2]}</td><td class="${days<0?"days-overdue":days<15?"days-warn":i<ci?"days-overdue":"days-ok"}">${days}</td>`;airlines.forEach(code=>{const amount=+d[code]||0,status=d[code+'p'];rowHTML+=`<td class="${status?"cell-paid":"cell-pending"}"><input value="${amount}" onchange="saveValue('${p[0]}','${code}',this.value)"></td><td><button class="btn ${status?'btn-success':'btn-warning'}" onclick="togglePaid('${p[0]}','${code}p',1)">PAID</button><button class="btn ${!status?'btn-success':'btn-warning'}" onclick="togglePaid('${p[0]}','${code}p',0)">PENDING</button></td>`;});rowHTML+=`<td>${inr(totalInv)}</td><td>${inr(totalPaid)}</td><td><input value="${d.avl||0}" onchange="saveValue('${p[0]}','avl',this.value)"></td><td><input value="${d.bor||0}" onchange="saveValue('${p[0]}','bor',this.value)"></td><td class="${isOverdue?'cell-overdue':''}"><strong>${inr(rem)}</strong></td><td><div class="donut" style="--a:120deg;--b:240deg"></div></td><td><div class="mini"><div style="width:${totalInv?totalPaid/totalInv*100:0}%"></div><div style="width:${totalInv?rem/totalInv*100:0}%"></div></td>`;tr.innerHTML=rowHTML;tbody.appendChild(tr);const o=document.createElement("option");o.value=p[0];o.text=fnLabel(p[0]);periodFilter.appendChild(o);});updateDashboard();document.getElementById('periodCount').textContent=periods.length;updateStatus();updateSummary();}
+let tbody,periodFilter,searchInput;
+function renderTable(){tbody=document.getElementById("tbody");periodFilter=document.getElementById("periodFilter");searchInput=document.getElementById("searchInput");tbody.innerHTML="";periodFilter.innerHTML='<option value="ALL">All Periods (28)</option>';ci=periods.findIndex(p=>calcDays(p[2])>=0);renderTableHeader();periods.forEach((p,i)=>{const d=store[p[0]]||{},days=calcDays(p[2]),isOverdue=days<0,totalInv=airlines.reduce((sum,code)=>sum+(+d[code]||0),0),totalPaid=airlines.reduce((sum,code)=>sum+(d[code+'p']?(+d[code]||0):0),0),rem=totalInv-totalPaid-(+d.avl||0);const tr=document.createElement("tr");tr.dataset.period=p[0];tr.className=isOverdue?"overdue":i<ci?"freeze":i===ci?"current":i===ci+1?"next":"";let rowHTML=`<td>${fnLabel(p[0])}</td><td>${p[1]}</td><td>${p[2]}</td><td class="${days<0?"days-overdue":days<15?"days-warn":i<ci?"days-overdue":"days-ok"}">${days}</td>`;airlines.forEach(code=>{const amount=+d[code]||0,status=d[code+'p'];rowHTML+=`<td class="${status?"cell-paid":"cell-pending"}"><input value="${amount}" onchange="saveValue('${p[0]}','${code}',this.value)"></td><td><button class="btn ${status?'btn-success':'btn-warning'}" onclick="togglePaid('${p[0]}','${code}p',1)">PAID</button><button class="btn ${!status?'btn-success':'btn-warning'}" onclick="togglePaid('${p[0]}','${code}p',0)">PENDING</button></td>`;});rowHTML+=`<td>${inr(totalInv)}</td><td>${inr(totalPaid)}</td><td><input value="${d.avl||0}" onchange="saveValue('${p[0]}','avl',this.value)"></td><td><input value="${d.bor||0}" onchange="saveValue('${p[0]}','bor',this.value)"></td><td class="${isOverdue?'cell-overdue':''}"><strong>${inr(rem)}</strong></td><td><div class="donut" style="--a:120deg;--b:240deg"></div></td><td><div class="mini"><div style="width:${totalInv?totalPaid/totalInv*100:0}%"></div><div style="width:${totalInv?rem/totalInv*100:0}%"></div></td>`;tr.innerHTML=rowHTML;tbody.appendChild(tr);const o=document.createElement("option");o.value=p[0];o.text=fnLabel(p[0]);periodFilter.appendChild(o);});updateDashboard();updateSummaryBig();document.getElementById('periodCount').textContent=periods.length;updateStatus();updateSummary();}
 
 function saveValue(period,field,value){store[period]=store[period]||{};store[period][field]=+value.replace(/\D/g,"")||0;localStorage.setItem(STORAGE_KEY,JSON.stringify(store));renderTable();}
 function togglePaid(period,field,value){store[period]=store[period]||{};store[period][field]=value;localStorage.setItem(STORAGE_KEY,JSON.stringify(store));renderTable();showNotification(value?"Marked PAID":"Marked PENDING");}
@@ -295,7 +420,31 @@ function w(id,v,m){document.getElementById(id).style.width=(m?Math.min(100,v/m*1
 
 function updateStatus(){const totalInv=periods.reduce((sum,p)=>{const d=store[p[0]]||{};return sum+airlines.reduce((s,code)=>s+(+d[code]||0),0);},0),totalPaid=periods.reduce((sum,p)=>{const d=store[p[0]]||{};return sum+airlines.reduce((s,code)=>s+(d[code+'p']?(+d[code]||0):0),0);},0);const rate=totalInv?totalPaid/totalInv:0;document.getElementById('globalStatus').className=`status-badge ${rate>0.8?'status-good':rate>0.5?'status-warning':'status-danger'}`;document.getElementById('globalStatus').textContent=`${pct(totalPaid,totalInv)}`;}
 
-function updateSummary(){const totalInv=0,totalPaid=0,totalRem=0,totalBor=0,overdueCount=0;periods.forEach(p=>{const d=store[p[0]]||{},inv=airlines.reduce((sum,code)=>sum+(+d[code]||0),0),paid=airlines.reduce((sum,code)=>sum+(d[code+'p']?(+d[code]||0):0),0),rem=inv-paid-(+d.avl||0);totalInv+=inv;totalPaid+=paid;totalRem+=rem;totalBor+=+d.bor||0;if(calcDays(p[2])<0&&rem>0)overdueCount++;});document.getElementById('sumTotalInv').textContent=inr(totalInv);document.getElementById('sumTotalPaid').textContent=inr(totalPaid);document.getElementById('sumCollectionRate').textContent=pct(totalPaid,totalInv);document.getElementById('sumTotalRem').textContent=inr(totalRem);document.getElementById('sumOverdueCount').textContent=overdueCount;document.getElementById('sumTotalBor').textContent=inr(totalBor);}
+function updateSummaryBig(){
+  const totalInv=periods.reduce((sum,p)=>{const d=store[p[0]]||{};return sum+airlines.reduce((s,code)=>s+(+d[code]||0),0);},0);
+  const totalPaid=periods.reduce((sum,p)=>{const d=store[p[0]]||{};return sum+airlines.reduce((s,code)=>s+(d[code+'p']?(+d[code]||0):0),0);},0);
+  const totalRem=totalInv-totalPaid;
+  const overdueCount=periods.filter(p=>calcDays(p[2])<0&&calcRemaining(p[0])>0).length;
+  
+  document.getElementById('sumTotalInvBig').textContent=inr(totalInv);
+  document.getElementById('sumTotalPaidBig').textContent=inr(totalPaid);
+  document.getElementById('sumTotalRemBig').textContent=inr(totalRem);
+  document.getElementById('sumOverdueCountBig').textContent=overdueCount;
+  
+  document.getElementById('sumCollectionRateBig').textContent=pct(totalPaid,totalInv);
+  document.getElementById('sumInvProgress').style.width=totalInv?Math.min(100,totalInv/5000000*100):0+"%"; // Scale to 50L max
+  document.getElementById('sumPaidProgress').style.width=totalInv?(totalPaid/totalInv*100):0+"%";
+  document.getElementById('sumRemProgress').style.width=totalInv?(totalRem/totalInv*100):0+"%";
+  document.getElementById('sumOverdueProgress').style.width=Math.min(100,overdueCount/10*100)+"%";
+  
+  const risk=overdueCount>3?'HIGH':overdueCount>1?'MEDIUM':'LOW';
+  document.getElementById('sumOverdueRisk').textContent=risk+' Risk';
+  document.getElementById('sumOverdueRisk').style.color=risk==='HIGH'?'var(--red)':risk==='MEDIUM'?'var(--amber)':'var(--green)';
+  
+  document.getElementById('footerSummary').textContent=`${pct(totalPaid,totalInv)} | ₹${inr(totalRem)} Outstanding`;
+}
+
+function updateSummary(){const totalInv=0,totalPaid=0,totalRem=0,totalBor=0,overdueCount=0;periods.forEach(p=>{const d=store[p[0]]||{},inv=airlines.reduce((sum,code)=>sum+(+d[code]||0),0),paid=airlines.reduce((sum,code)=>sum+(d[code+'p']?(+d[code]||0):0),0),rem=inv-paid-(+d.avl||0);totalInv+=inv;totalPaid+=paid;totalRem+=rem;totalBor+=+d.bor||0;if(calcDays(p[2])<0&&rem>0)overdueCount++;});document.getElementById('sumTotalInv').textContent=inr(totalInv);document.getElementById('sumTotalPaid').textContent=inr(totalPaid);document.getElementById('sumCollectionRate').textContent=pct(totalPaid,totalInv);document.getElementById('sumTotalRem').textContent=inr(totalRem);document.getElementById('sumOverdueCount').textContent=overdueCount;document.getElementById('sumTotalBor').textContent=inr(totalBor);document.getElementById('sumPeriodCount').textContent=periods.length;}
 
 function loadConfig(){if(localStorage.config)config=JSON.parse(localStorage.config);document.getElementById("freezeDays").value=config.freezeDays||2;document.getElementById("customDate").value=config.customDate||'';}
 function saveConfig(){config.freezeDays=+document.getElementById("freezeDays").value||2;config.customDate=document.getElementById("customDate").value;localStorage.config=JSON.stringify(config);renderTable();}
@@ -325,6 +474,6 @@ const periods=[["20251102F","2025-12-09","2025-12-30"],["20251201F","2025-12-25"
 
 loadConfig();loadData();renderTable();
 </script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
