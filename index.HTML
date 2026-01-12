@@ -399,13 +399,76 @@ function closeCapture(){
 }
 
 /* ================= AIRLINE MANAGEMENT ================= */
-function loadAirlines(){const saved=localStorage.getItem(AIRLINE_KEY);if(saved){const data=JSON.parse(saved);airlines=data.airlines;airlineNames=data.names;}renderAirlineList();updateAirlineUI();}
-function saveAirlines(){localStorage.setItem(AIRLINE_KEY,JSON.stringify({airlines,airlineNames}));renderTable();}
-function renderAirlineList(){const list=document.getElementById('airlineList');list.innerHTML='';airlines.forEach((code,i)=>{const item=document.createElement('div');item.className='airline-item';item.innerHTML=`<span>${airlineNames[code]} (${code})</span><span class="airline-delete" onclick="deleteAirline(${i})" title="Delete Airline">×</span>`;list.appendChild(item);});}
-function addAirline(){const name=document.getElementById('newAirlineName').value.trim(),code=document.getElementById('newAirlineCode').value.trim().toUpperCase();if(!name||!code||code.length!==2||airlines.includes(code)){showNotification("Invalid code or duplicate", "danger");return;}airlines.push(code);airlineNames[code]=name;document.getElementById('newAirlineName').value='';document.getElementById('newAirlineCode').value='';saveAirlines();showNotification(`${name} (${code}) added`, "success");}
-function deleteAirline(index){if(airlines.length<=1){showNotification("Must keep at least 1 airline", "danger");return;}if(confirm(`Delete ${airlineNames[airlines[index]]} (${airlines[index]})?`)){airlines.splice(index,1);delete airlineNames[airlines[index]];saveAirlines();showNotification("Airline deleted", "warning");}}
-function resetAirlines(){if(confirm("Reset to default airlines?")){airlines=['SL','AI','SG'];airlineNames={'SL':'Srilankan','AI':'AirIndia','SG':'Singapore'};saveAirlines();showNotification("Default airlines restored", "success");}}
-function updateAirlineUI(){document.getElementById('airlineCount').textContent=`(${airlines.length} Airlines)`;document.getElementById('airlineCountFooter').textContent=airlines.length;document.getElementById('sumAirlineCount').textContent=airlines.length;}
+function loadAirlines(){
+  const saved = localStorage.getItem(AIRLINE_KEY);
+  if(saved){
+    const data = JSON.parse(saved);
+    airlines = data.airlines;
+    airlineNames = data.names;
+  }
+  renderAirlineList();
+  updateAirlineUI();
+}
+
+function saveAirlines(){
+  localStorage.setItem(AIRLINE_KEY, JSON.stringify({airlines, airlineNames}));
+  renderTable();
+}
+
+function renderAirlineList(){
+  const list = document.getElementById('airlineList');
+  list.innerHTML = '';
+  airlines.forEach((code, i) => {
+    const item = document.createElement('div');
+    item.className = 'airline-item';
+    item.innerHTML = `<span>${airlineNames[code]} (${code})</span><span class="airline-delete" onclick="deleteAirline(${i})" title="Delete Airline">×</span>`;
+    list.appendChild(item);
+  });
+}
+
+function addAirline(){
+  const name = document.getElementById('newAirlineName').value.trim();
+  const code = document.getElementById('newAirlineCode').value.trim().toUpperCase();
+  if(!name || !code || code.length !== 2 || airlines.includes(code)){
+    showNotification("Invalid code or duplicate", "danger");
+    return;
+  }
+  airlines.push(code);
+  airlineNames[code] = name;
+  document.getElementById('newAirlineName').value = '';
+  document.getElementById('newAirlineCode').value = '';
+  saveAirlines();
+  showNotification(`${name} (${code}) added`, "success");
+}
+
+function deleteAirline(index){
+  if(airlines.length <= 1){
+    showNotification("Must keep at least 1 airline", "danger");
+    return;
+  }
+  if(confirm(`Delete ${airlineNames[airlines[index]]} (${airlines[index]})?`)){
+    airlines.splice(index, 1);
+    delete airlineNames[airlines[index]];  // FIXED: This was wrong before
+    saveAirlines();
+    showNotification("Airline deleted", "warning");
+  }
+}
+
+function resetAirlines(){
+  if(confirm("Reset to default airlines?")){
+    airlines = ['SL','AI','SG'];
+    airlineNames = {'SL':'Srilankan','AI':'AirIndia','SG':'Singapore'};
+    saveAirlines();
+    showNotification("Default airlines restored", "success");
+  }
+}
+
+function updateAirlineUI(){
+  document.getElementById('airlineCount').textContent = `(${airlines.length} Airlines)`;
+  document.getElementById('airlineCountFooter').textContent = airlines.length;
+  document.getElementById('sumAirlineCount').textContent = airlines.length;
+}
+
 
 /* ================= TABLE OPERATIONS ================= */
 function renderTableHeader(){const thead=document.getElementById('tableHead'),existingRows=thead.querySelectorAll('tr');existingRows.forEach(row=>row.remove());const headerRow=document.createElement('tr');headerRow.innerHTML='<th>Period</th><th>Invoice</th><th>Remittance</th><th>Days</th>';airlines.forEach(code=>{const th1=document.createElement('th');th1.innerHTML=`${airlineNames[code]}<br><small style="font-size:10px;opacity:.7">${code}</small>`;headerRow.appendChild(th1);const th2=document.createElement('th');th2.textContent='Status';headerRow.appendChild(th2);});headerRow.innerHTML+='<th>Total</th><th>Paid</th><th>AVL</th><th>Borrowed</th><th>Remaining</th><th>Split</th><th>Progress</th>';thead.appendChild(headerRow);}
@@ -478,6 +541,7 @@ loadConfig();loadData();renderTable();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
+
 
 
 
