@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airline Outstanding Dashboard</title>
+    <title>Seaport FN - Airline Payable Dashboard</title>
     <style>
         * {
             margin: 0;
@@ -15,121 +15,277 @@
             width: 100%;
             height: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         body {
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
             overflow-x: hidden;
         }
 
-        /* HEADER */
+        .watermark {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-weight: 700;
+            color: #667eea;
+            font-size: 13px;
+            border: 2px solid #667eea;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            margin: 0;
+        }
+
         header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 30px 20px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            position: relative;
+            padding: 25px 30px;
+            text-align: center;
         }
 
         header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 5px;
-            font-weight: 700;
+            font-size: 2.4em;
+            margin-bottom: 8px;
+            font-weight: 800;
             letter-spacing: 0.5px;
         }
 
-        header p {
-            font-size: 1rem;
+        .header-subtitle {
+            font-size: 0.95rem;
             opacity: 0.95;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
-        .view-only-badge {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(231, 76, 60, 0.9);
+        .credit-line {
+            font-size: 0.85rem;
+            opacity: 0.85;
+            font-weight: 600;
+        }
+
+        /* MARQUEE - SLOWER */
+        .marquee-container {
+            background: linear-gradient(90deg, #2c3e50 0%, #34495e 100%);
             color: white;
             padding: 12px 20px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.3);
-            z-index: 1000;
-            backdrop-filter: blur(10px);
+            overflow: hidden;
+            border-bottom: 3px solid #667eea;
         }
 
-        /* DASHBOARD CARDS */
-        .dashboard {
+        .marquee {
+            display: flex;
+            animation: scroll 45s linear infinite;
+            white-space: nowrap;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        .marquee-text {
+            padding: 0 50px;
+            display: inline-block;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .marquee:hover {
+            animation-play-state: paused;
+        }
+
+        /* CARDS AT TOP */
+        .top-cards {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 3px solid #e1e4e8;
+        }
+
+        .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 15px;
+            max-width: 1800px;
+            margin: 0 auto 20px auto;
         }
 
-        .card {
+        .top-card {
             background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
             border-left: 5px solid #667eea;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        .top-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
         }
 
-        .card h4 {
-            font-size: 0.9rem;
+        .top-card.highlight {
+            background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+            border-left-color: #27ae60;
+        }
+
+        .top-card-label {
+            font-size: 0.8rem;
             color: #7f8c8d;
-            margin-bottom: 12px;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            margin-bottom: 8px;
         }
 
-        .card-value {
+        .top-card-value {
             font-size: 1.8rem;
-            font-weight: 700;
+            font-weight: 800;
             color: #667eea;
             font-family: 'Courier New', monospace;
         }
 
-        .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 50px;
-            background: linear-gradient(180deg, transparent, rgba(102, 126, 234, 0.1));
+        .top-card-value.red {
+            color: #e74c3c;
         }
 
-        /* CONTROL BAR */
+        .top-card-value.green {
+            color: #27ae60;
+        }
+
+        .top-card-value.orange {
+            color: #e67e22;
+        }
+
+        /* AIRLINES SECTION */
+        .airlines-section {
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .airlines-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .airlines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .airline-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .airline-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .airline-card.paid {
+            border-left-color: #27ae60;
+            background: linear-gradient(135deg, #f0fef5 0%, #ffffff 100%);
+        }
+
+        .airline-card.pending {
+            border-left-color: #e74c3c;
+        }
+
+        .airline-card-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
+        .airline-card-amount {
+            font-family: 'Courier New', monospace;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .airline-card-status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-paid {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+
+        .status-pending {
+            background: #fdeaea;
+            color: #e74c3c;
+        }
+
+        /* MAIN LAYOUT */
+        .main-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* RIGHT SIDE - TABLE */
+        .right-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 0;
+        }
+
         .control-bar {
             display: flex;
-            gap: 12px;
-            margin-bottom: 25px;
+            gap: 10px;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e1e4e8;
             flex-wrap: wrap;
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
 
         .control-bar select,
         .control-bar input {
-            padding: 10px 15px;
-            border: 2px solid #ecf0f1;
-            border-radius: 8px;
-            font-size: 0.95rem;
+            padding: 10px 12px;
+            border: 2px solid #e1e4e8;
+            border-radius: 6px;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             font-family: inherit;
         }
@@ -147,32 +303,24 @@
         }
 
         .btn {
-            padding: 10px 18px;
+            padding: 10px 16px;
             border: none;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 600;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             background: #667eea;
             color: white;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .btn:hover {
             background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-success {
-            background: #27ae60;
-        }
-
-        .btn-success:hover {
-            background: #229954;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
         }
 
         .btn-warning {
@@ -183,49 +331,41 @@
             background: #e67e22;
         }
 
-        .btn-danger {
-            background: #e74c3c;
-        }
-
-        .btn-danger:hover {
-            background: #c0392b;
-        }
-
-        /* TABLE */
-        .table-wrap {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .table-container {
+            flex: 1;
             overflow-x: auto;
+            overflow-y: auto;
+            margin: 0;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         thead {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            font-weight: 600;
+            font-weight: 700;
             position: sticky;
             top: 0;
             z-index: 10;
         }
 
         th {
-            padding: 16px 12px;
+            padding: 14px 10px;
             text-align: left;
             white-space: nowrap;
-            border-bottom: 2px solid #ecf0f1;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            border-right: 1px solid rgba(255,255,255,0.2);
         }
 
         td {
-            padding: 14px 12px;
-            border-bottom: 1px solid #ecf0f1;
-            transition: background 0.2s ease;
+            padding: 12px 10px;
+            border-bottom: 1px solid #e1e4e8;
         }
 
         tbody tr:hover {
@@ -233,74 +373,44 @@
         }
 
         tbody tr:nth-child(even) {
-            background: #f5f7fa;
+            background: #fafbfc;
         }
 
-        tbody tr:nth-child(even):hover {
-            background: #f0f2f7;
+        tbody tr.current-row {
+            background: linear-gradient(90deg, #f0f4ff 0%, #f8f9fa 100%);
+            border-left: 4px solid #667eea;
+        }
+
+        tbody tr.current-row:hover {
+            background: linear-gradient(90deg, #e8edff 0%, #f5f7fa 100%);
+        }
+
+        tbody tr.paid-row {
+            background: linear-gradient(90deg, #f0fef5 0%, #f8fafb 100%);
         }
 
         .status-badge {
             display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
             text-transform: uppercase;
-        }
-
-        .status-paid {
-            background: #d5f4e6;
-            color: #27ae60;
-        }
-
-        .status-pending {
-            background: #fdeaea;
-            color: #e74c3c;
         }
 
         .number-cell {
             font-family: 'Courier New', monospace;
             text-align: right;
-            font-weight: 600;
+            font-weight: 700;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: #ecf0f1;
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 4px;
-            display: flex;
-        }
-
-        .progress-fill {
-            height: 100%;
-            transition: width 0.3s ease;
-        }
-
-        .progress-paid {
-            background: #27ae60;
-        }
-
-        .progress-pending {
-            background: #e74c3c;
-        }
-
-        .progress-avl {
-            background: #ecf0f1;
-            border-right: 1px solid #bdc3c7;
-        }
-
-        /* FLOATING PANELS */
         .floating-panel {
             position: fixed;
             bottom: 20px;
             right: 20px;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             max-width: 500px;
             width: 90%;
             max-height: 80vh;
@@ -308,11 +418,11 @@
             z-index: 999;
             animation: slideUp 0.3s ease;
             display: none;
+            flex-direction: column;
         }
 
         .floating-panel.show {
             display: flex;
-            flex-direction: column;
         }
 
         @keyframes slideUp {
@@ -329,21 +439,21 @@
         .panel-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px;
+            padding: 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-radius: 12px 12px 0 0;
+            border-radius: 10px 10px 0 0;
         }
 
         .panel-title {
             font-size: 1.1rem;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .panel-close {
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             opacity: 0.8;
             transition: opacity 0.2s;
         }
@@ -353,225 +463,59 @@
         }
 
         .panel-content {
-            padding: 25px;
+            padding: 20px;
             flex: 1;
         }
 
-        .config-row,
-        .export-row {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 15px;
-            align-items: center;
-        }
-
-        .config-row label {
-            min-width: 120px;
-            font-weight: 600;
-        }
-
-        .config-row input {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid #ecf0f1;
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
-
-        /* SUMMARY PANEL */
-        .summary-metrics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .metric-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-        }
-
-        .metric-label {
-            font-size: 0.85rem;
-            color: #7f8c8d;
-            margin-bottom: 8px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .metric-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            font-family: 'Courier New', monospace;
-            color: #2c3e50;
-        }
-
-        .metric-positive {
-            color: #27ae60;
-        }
-
-        .metric-negative {
-            color: #e74c3c;
-        }
-
-        .stat-highlight {
-            background: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-        }
-
-        .summary-stats {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-        }
-
-        .stat-row {
+        .summary-item {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #ecf0f1;
-        }
-
-        .stat-row:last-child {
-            border-bottom: none;
-        }
-
-        .stat-label {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
             font-weight: 600;
-            color: #2c3e50;
         }
 
-        .stat-value {
+        .summary-value {
             font-family: 'Courier New', monospace;
-            font-weight: 700;
+            font-weight: 800;
             color: #667eea;
         }
 
-        /* NOTIFICATION */
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: #27ae60;
-            color: white;
-            padding: 16px 24px;
-            border-radius: 8px;
-            box-shadow: 0 5px 20px rgba(39, 174, 96, 0.3);
-            display: none;
-            animation: slideIn 0.3s ease;
-            z-index: 1001;
-            max-width: 300px;
-        }
-
-        .notification.show {
-            display: block;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        /* FOOTER */
         footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             text-align: center;
-            padding: 30px 20px;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            margin-top: 40px;
+            padding: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
-        .footer-credit {
-            font-size: 0.8rem;
-            color: #95a5a6;
-            margin-top: 10px;
+        @media (max-width: 1200px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .right-content {
+                flex: 1;
+            }
         }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
             header h1 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
 
-            .dashboard {
+            .cards-grid,
+            .airlines-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
             .control-bar {
-                flex-direction: column;
-            }
-
-            .control-bar select,
-            .control-bar input {
-                width: 100%;
-            }
-
-            .btn {
-                flex: 1;
-                justify-content: center;
-            }
-
-            table {
-                font-size: 0.8rem;
-            }
-
-            th, td {
-                padding: 10px 8px;
-            }
-
-            .floating-panel {
-                width: 95%;
-                max-width: 100%;
-                bottom: 10px;
-                right: 10px;
-            }
-
-            .view-only-badge {
-                top: 10px;
-                right: 10px;
-                padding: 8px 12px;
-                font-size: 0.8rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
                 padding: 10px;
-            }
-
-            header h1 {
-                font-size: 1.4rem;
-            }
-
-            header {
-                padding: 20px 15px;
-                margin-bottom: 20px;
-            }
-
-            .dashboard {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .control-bar {
-                padding: 15px;
                 gap: 8px;
-            }
-
-            .control-bar select,
-            .control-bar input,
-            .btn {
-                font-size: 0.85rem;
-                padding: 8px 12px;
             }
 
             table {
@@ -581,267 +525,175 @@
             th, td {
                 padding: 8px 6px;
             }
+        }
 
-            .summary-metrics {
+        @media (max-width: 480px) {
+            .cards-grid,
+            .airlines-grid {
                 grid-template-columns: 1fr;
             }
-        }
-
-        /* Loading state */
-        .table-wrap.loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #7f8c8d;
-        }
-
-        .empty-state h3 {
-            margin-bottom: 10px;
-            color: #2c3e50;
         }
     </style>
 </head>
 <body>
-    <!-- VIEW-ONLY BADGE -->
-    <div class="view-only-badge">🔒 View-Only Data</div>
-
-    <!-- HEADER -->
-    <header>
-        <h1>✈️ Airline Outstanding Dashboard</h1>
-        <p>Real-time payment tracking for multiple airlines</p>
-        <small id="lastUpdated">Last Updated: <span id="updateTime">—</span></small>
-    </header>
-
-    <!-- DASHBOARD CARDS -->
-    <div class="dashboard">
-        <div class="card">
-            <h4>Current Period Invoice</h4>
-            <div class="card-value"><span id="dInv">₹0</span></div>
-            <div class="wave"></div>
-        </div>
-        <div class="card">
-            <h4>Pending Amount</h4>
-            <div class="card-value"><span id="dPend">₹0</span></div>
-            <div class="wave"></div>
-        </div>
-        <div class="card">
-            <h4>Pending - AVL</h4>
-            <div class="card-value"><span id="dRem">₹0</span></div>
-            <div class="wave"></div>
-        </div>
-        <div class="card">
-            <h4>Total Borrowed</h4>
-            <div class="card-value"><span id="dBor">₹0</span></div>
-            <div class="wave"></div>
-        </div>
-        <div class="card">
-            <h4>AVL Balance</h4>
-            <div class="card-value"><span id="dAVL">₹0</span></div>
-            <div class="wave"></div>
-        </div>
-        <div class="card">
-            <h4>Overdue Amount</h4>
-            <div class="card-value"><span id="dOver">₹0</span></div>
-            <div class="wave"></div>
-        </div>
+    <div class="watermark">
+        Mcode v3.2<br>
+        @Mubarak<br>
+        <span id="todayDate" style="font-size: 11px; opacity: 0.9;"></span>
     </div>
 
-    <!-- CONTROL BAR -->
-    <div class="control-bar">
-        <select id="periodFilter" onchange="applyFilter()">
-            <option value="">All Periods (28)</option>
-        </select>
-        <select id="airlineFilter" onchange="applyFilter()">
-            <option value="">All Airlines</option>
-            <option value="SL">SriLankan Air</option>
-            <option value="AI">Air India</option>
-            <option value="SG">Singapore Airlines</option>
-        </select>
-        <input type="search" id="searchInput" placeholder="Search periods/invoices..." oninput="applySearch()">
-        <button class="btn" onclick="toggleExportPanel()">📊 Export</button>
-        <button class="btn btn-warning" onclick="showSummary()">📈 Summary</button>
-    </div>
-
-    <!-- TABLE -->
     <div class="container">
-        <div class="table-wrap">
-            <table id="mainTable">
-                <thead id="tableHead">
-                    <tr>
-                        <th>Period</th>
-                        <th>Invoice</th>
-                        <th>Remittance</th>
-                        <th>Days</th>
-                        <th colspan="2">SriLankan (SL)</th>
-                        <th colspan="2">Air India (AI)</th>
-                        <th colspan="2">Singapore (SG)</th>
-                        <th>Total</th>
-                        <th>Paid</th>
-                        <th>Remaining</th>
-                        <th>Borrowed</th>
-                        <th>AVL</th>
-                        <th>Progress</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody"></tbody>
-            </table>
+        <header>
+            <h1> Seaport FN Airlines Payable - Dashboard</h1>
+            <p class="header-subtitle">AIR DIVISION -  Airline Payment Tracking System</p>
+            <div class="credit-line">🔒 Secured Authentication </div>
+        </header>
+
+        <!-- MARQUEE -->
+        <div class="marquee-container">
+            <div class="marquee">
+              
+ <span class="marquee-text">|| SEAPORT LINES INDIA PVT LTD ||</span>
+                <span class="marquee-text">AIR DIVISION ||</span>
+                <span class="marquee-text">|| 📊 Payment Tracking System ||</span>
+  <span class="marquee-text">📡 Real-time Update | Daily Authentication Verified |</span>
+               
+               <span class="marquee-text">💰 View-Only Details - Backend Updates Daily |</span>
+            </div>
+        </div>
+
+        <!-- TOP CARDS -->
+        <div class="top-cards">
+            <div class="cards-grid">
+                <div class="top-card highlight">
+                    <div class="top-card-label">📅 Current Period</div>
+                    <div class="top-card-value" style="font-size: 1.3rem;" id="topPeriod">—</div>
+                </div>
+                <div class="top-card">
+                    <div class="top-card-label">📊 Total Invoice</div>
+                    <div class="top-card-value" id="topTotal">₹0</div>
+                </div>
+                <div class="top-card">
+                    <div class="top-card-label">⏰ Days Remaining</div>
+                    <div class="top-card-value green" id="topDays">0</div>
+                </div>
+                <div class="top-card">
+                    <div class="top-card-label">💰 AVL Buffer</div>
+                    <div class="top-card-value orange" id="topAVL">₹0</div>
+                </div>
+                <div class="top-card">
+                    <div class="top-card-label">💵 Outstanding</div>
+                    <div class="top-card-value red" id="topPending">₹0</div>
+                </div>
+            </div>
+
+            <div class="airlines-section">
+                <div class="airlines-title">✈️ Current Period Airlines Breakdown</div>
+                <div class="airlines-grid" id="airlinesGrid"></div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <!-- TABLE -->
+            <div class="right-content">
+                <div class="control-bar">
+                    <select id="periodFilter" onchange="applyFilter()">
+                        <option value="">All Periods</option>
+                    </select>
+                    <select id="airlineFilter" onchange="applyFilter()">
+                        <option value="">All Airlines</option>
+                    </select>
+                    <input type="search" id="searchInput" placeholder="🔍 Search..." oninput="applySearch()">
+                    <button class="btn" onclick="exportCSV()">📄 CSV</button>
+                    <button class="btn" onclick="exportJSON()">📋 JSON</button>
+                    <button class="btn btn-warning" onclick="showSummary()">📈 Summary</button>
+                </div>
+
+                <div class="table-container">
+                    <table id="mainTable">
+                        <thead id="tableHead"></thead>
+                        <tbody id="tbody"></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- EXPORT PANEL -->
-    <div class="floating-panel" id="exportPanel">
-        <div class="panel-header">
-            <div class="panel-title">📊 Export Data</div>
-            <span class="panel-close" onclick="toggleExportPanel()">✕</span>
-        </div>
-        <div class="panel-content">
-            <div class="export-row">
-                <button class="btn" onclick="exportCSV()" style="flex:1">📄 CSV Export</button>
-                <button class="btn" onclick="exportJSON()" style="flex:1">📋 JSON Export</button>
-            </div>
-            <div class="export-row">
-                <button class="btn" onclick="copyTable()" style="flex:1">📋 Copy Table</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- SUMMARY PANEL -->
     <div class="floating-panel" id="summaryPanel">
         <div class="panel-header">
-            <div class="panel-title">📈 Executive Summary</div>
+            <div class="panel-title">📈 Current Period Summary</div>
             <span class="panel-close" onclick="hideSummary()">✕</span>
         </div>
-        <div class="panel-content">
-            <div class="summary-metrics">
-                <div class="metric-card">
-                    <div class="metric-label">Total Invoice Value</div>
-                    <div class="metric-value stat-highlight" id="sumTotalInv">₹0</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Amount Collected</div>
-                    <div class="metric-value metric-positive stat-highlight" id="sumTotalPaid">₹0</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Collection Rate</div>
-                    <div class="metric-value metric-positive" id="sumCollectionRate">0%</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Outstanding Balance</div>
-                    <div class="metric-value metric-negative stat-highlight" id="sumTotalRem">₹0</div>
-                </div>
-            </div>
-
-            <div class="summary-stats">
-                <div class="stat-row">
-                    <span class="stat-label">Total Borrowed</span>
-                    <span class="stat-value" id="sumTotalBor">₹0</span>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-label">Total AVL Balance</span>
-                    <span class="stat-value" id="sumTotalAVL">₹0</span>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-label">Overdue Periods</span>
-                    <span class="stat-value metric-negative" id="sumOverdueCount">0</span>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-label">Active Airlines</span>
-                    <span class="stat-value metric-positive">3</span>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-label">Total Periods Tracked</span>
-                    <span class="stat-value" id="sumPeriodCount">28</span>
-                </div>
-            </div>
-        </div>
+        <div class="panel-content" id="summaryContent"></div>
     </div>
 
-    <!-- NOTIFICATION -->
-    <div class="notification" id="notification"></div>
-
-    <!-- FOOTER -->
     <footer>
-        <div>
-            Airlines: <strong>3</strong> | Periods: <strong id="periodCount">28</strong> | Status: <strong id="footerStatus">Ready</strong>
-        </div>
-        <div class="footer-credit">
-            Developed by Mcode 3.2 | Founder: Mubarak © 2026
-        </div>
+        ✈️ Airlines: <strong id="airlineCount">5</strong> | 📅 Periods: <strong id="periodCount">27</strong> | 🔄 Last Updated: <strong id="lastUpdate">Today</strong> | Powered by Seaport FN © 2026
     </footer>
 
     <script>
-        // ==================== HARD-CODED DATA ====================
-        const periods = [
-            ["20251102F", "2025-11-02", "2025-12-09"],
-            ["20251201F", "2025-12-01", "2025-12-25"],
-            ["20251202F", "2025-12-02", "2026-01-08"],
-            ["20260101F", "2026-01-01", "2026-01-25"],
-            ["20260102F", "2026-01-02", "2026-02-07"],
-            ["20260201F", "2026-02-01", "2026-02-24"],
-            ["20260202F", "2026-02-02", "2026-03-07"],
-            ["20260301F", "2026-03-01", "2026-03-25"],
-            ["20260302F", "2026-03-02", "2026-04-09"],
-            ["20260401F", "2026-04-01", "2026-04-25"],
-            ["20260402F", "2026-04-02", "2026-05-07"],
-            ["20260501F", "2026-05-01", "2026-05-27"],
-            ["20260502F", "2026-05-02", "2026-06-09"],
-            ["20260601F", "2026-06-01", "2026-06-25"],
-            ["20260602F", "2026-06-02", "2026-07-09"],
-            ["20260701F", "2026-07-01", "2026-07-25"],
-            ["20260702F", "2026-07-02", "2026-08-07"],
-            ["20260801F", "2026-08-01", "2026-08-26"],
-            ["20260802F", "2026-08-02", "2026-09-09"],
-            ["20260901F", "2026-09-01", "2026-09-24"],
-            ["20260902F", "2026-09-02", "2026-10-08"],
-            ["20261001F", "2026-10-01", "2026-10-25"],
-            ["20261002F", "2026-10-02", "2026-11-07"],
-            ["20261101F", "2026-11-01", "2026-11-25"],
-            ["20261102F", "2026-11-02", "2026-12-09"],
-            ["20261201F", "2026-12-01", "2026-12-24"],
-            ["20261202F", "2026-12-02", "2027-01-07"],
-            ["20270101F", "2027-01-01", "2027-01-25"]
+        const AIRLINES = [
+            { code: "SL", name: "SriLankan Airways" },
+            { code: "AI", name: "Air India" },
+            { code: "SQ", name: "Singapore Airlines" },
+            { code: "TP", name: "Teleport Airlines" },
+            { code: "OT", name: "Other Airlines" }
         ];
-
-        // Invoice data: [slAmount, aiAmount, sgAmount, slStatus, aiStatus, sgStatus, paid, borrowed, avl]
-        const invoiceData = [
-            [1411196, 1061148, 1894593, "PAID", "PAID", "PAID", 4366937, 0, 0],
-            [1839350, 489611, 2428937, "PAID", "PAID", "PAID", 4757898, 0, 0],
-            [2089753, 724150, 1975908, "PAID", "PAID", "PAID", 4789811, 0, 0],
-            [1943404, 617083, 2840655, "PENDING", "PENDING", "PENDING", 0, 0, 500000],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0],
-            [0, 0, 0, "PENDING", "PENDING", "PENDING", 0, 0, 0]
+        
+        const periods = [
+            { id: "20251102F", dates: ["2025-12-09", "2025-12-30"], airlines: [["SL", 1411196, "PAID"], ["AI", 1061148, "PAID"], ["SQ", 1894593, "PAID"], ["TP", 0, "PAID"], ["OT", 0, "PAID"]], avl: 0 },
+            { id: "20251201F", dates: ["2025-12-25", "2026-01-14"], airlines: [["SL", 1839350, "PAID"], ["AI", 489611, "PAID"], ["SQ", 2428937, "PAID"], ["TP", 0, "PAID"], ["OT", 0, "PAID"]], avl: 0 },
+            { id: "20251202F", dates: ["2026-01-08", "2026-01-30"], airlines: [["SL", 2089753, "PAID"], ["AI", 724150, "PAID"], ["SQ", 1975908, "PAID"], ["TP", 0, "PAID"], ["OT", 0, "PAID"]], avl: 0 },
+            { id: "20260101F", dates: ["2026-01-25", "2026-02-16"], airlines: [["SL", 1943404, "PENDING"], ["AI", 617083, "PENDING"], ["SQ", 2840655, "PENDING"], ["TP", 231085, "PENDING"], ["OT", 8346, "PENDING"]], avl: 500000 },
+            { id: "20260102F", dates: ["2026-02-07", "2026-03-02"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260201F", dates: ["2026-02-24", "2026-03-17"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260202F", dates: ["2026-03-07", "2026-03-30"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260301F", dates: ["2026-03-25", "2026-04-14"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260302F", dates: ["2026-04-09", "2026-04-30"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260401F", dates: ["2026-04-25", "2026-05-15"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260402F", dates: ["2026-05-07", "2026-06-01"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260501F", dates: ["2026-05-27", "2026-06-15"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260502F", dates: ["2026-06-09", "2026-06-30"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260601F", dates: ["2026-06-25", "2026-07-15"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260602F", dates: ["2026-07-09", "2026-07-30"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260701F", dates: ["2026-07-25", "2026-08-14"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260702F", dates: ["2026-08-07", "2026-08-31"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260801F", dates: ["2026-08-26", "2026-09-14"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260802F", dates: ["2026-09-09", "2026-09-30"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260901F", dates: ["2026-09-24", "2026-10-15"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20260902F", dates: ["2026-10-08", "2026-10-30"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20261001F", dates: ["2026-10-25", "2026-11-16"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20261002F", dates: ["2026-11-07", "2026-11-30"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20261101F", dates: ["2026-11-25", "2026-12-15"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20261102F", dates: ["2026-12-09", "2026-12-30"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20261201F", dates: ["2026-12-24", "2027-01-14"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
+            { id: "20261202F", dates: ["2027-01-07", "2027-02-01"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 }
         ];
 
         let filteredData = [];
-        let currentFilter = { period: "", airline: "" };
+        let currentPeriod = null;
+        let currentPeriodId = null;
 
-        // ==================== UTILITIES ====================
+        function formatPeriodName(periodId) {
+            // Format: 20260101F -> 1 FN JAN'26
+            const year = periodId.substring(0, 4);
+            const month = periodId.substring(4, 6);
+            const fn = periodId.substring(6, 8);
+            
+            const monthNames = {
+                '01': 'JAN', '02': 'FEB', '03': 'MAR', '04': 'APR',
+                '05': 'MAY', '06': 'JUN', '07': 'JUL', '08': 'AUG',
+                '09': 'SEP', '10': 'OCT', '11': 'NOV', '12': 'DEC'
+            };
+            
+            const fnNumber = parseInt(fn);
+            const monthName = monthNames[month];
+            const yearShort = year.substring(2, 4);
+            
+            return `${fnNumber} FN ${monthName}'${yearShort}`;
+        }
+
         function formatCurrency(num) {
             if (!num) return "₹0";
             return "₹" + Math.abs(num).toLocaleString('en-IN', { maximumFractionDigits: 0 });
@@ -849,148 +701,185 @@
 
         function formatDate(dateStr) {
             const date = new Date(dateStr);
-            return date.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: '2-digit' });
+            return date.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
         }
 
-        function getMonthYear(dateStr) {
-            const date = new Date(dateStr);
-            return date.toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
-        }
-
-        function calculateDays(endDate) {
+        function calculateDays(invoiceDate, remitDate) {
             const today = new Date();
-            const end = new Date(endDate);
-            const diff = Math.ceil((end - today) / (1000 * 60 * 60 * 24));
+            const remit = new Date(remitDate);
+            const diff = Math.ceil((remit - today) / (1000 * 60 * 60 * 24));
             return diff;
         }
 
-        function showNotification(message) {
-            const notif = document.getElementById('notification');
-            notif.textContent = message;
-            notif.classList.add('show');
-            setTimeout(() => notif.classList.remove('show'), 3000);
+        function processPeriod(periodData) {
+            const [invoiceDate, remitDate] = periodData.dates;
+            
+            let total = 0;
+            let paid = 0;
+            const airlineDetails = {};
+
+            periodData.airlines.forEach(([code, amount, status]) => {
+                total += amount;
+                if (status === "PAID") {
+                    paid += amount;
+                }
+                airlineDetails[code] = { amount, status };
+            });
+
+            const correctPending = total - paid - periodData.avl;
+
+            return {
+                id: periodData.id,
+                invoiceDate,
+                remitDate,
+                total,
+                paid,
+                pending: correctPending,
+                avl: periodData.avl,
+                days: calculateDays(invoiceDate, remitDate),
+                airlines: airlineDetails
+            };
         }
 
-        // ==================== DATA PROCESSING ====================
+        function getCurrentPeriod() {
+            const today = new Date();
+            let current = null;
+
+            for (let i = 0; i < periods.length; i++) {
+                const [invoiceDate, remitDate] = periods[i].dates;
+                const invoice = new Date(invoiceDate);
+                const remit = new Date(remitDate);
+                
+                if (today >= invoice && today <= remit) {
+                    current = periods[i];
+                    currentPeriodId = i;
+                    break;
+                }
+            }
+
+            if (!current) {
+                current = periods[periods.length - 1];
+                currentPeriodId = periods.length - 1;
+            }
+
+            return processPeriod(current);
+        }
+
+        function updateTopCards() {
+            currentPeriod = getCurrentPeriod();
+
+            document.getElementById('topPeriod').textContent = formatPeriodName(currentPeriod.id);
+            document.getElementById('topTotal').textContent = formatCurrency(currentPeriod.total);
+            
+            const daysVal = currentPeriod.days;
+            const daysEl = document.getElementById('topDays');
+            daysEl.textContent = daysVal;
+            daysEl.className = 'top-card-value ' + (daysVal < 0 ? 'red' : 'green');
+            
+            document.getElementById('topAVL').textContent = formatCurrency(currentPeriod.avl);
+            document.getElementById('topPending').textContent = formatCurrency(currentPeriod.pending);
+
+            // Update airlines grid in top section
+            let airlinesHTML = '';
+            AIRLINES.forEach(airline => {
+                const code = airline.code;
+                const data = currentPeriod.airlines[code];
+                if (data) {
+                    const statusClass = data.status === 'PAID' ? 'status-paid paid' : 'status-pending pending';
+                    const amountColor = data.status === 'PAID' ? '#27ae60' : '#667eea';
+                    
+                    airlinesHTML += `
+                        <div class="airline-card ${statusClass.split(' ')[1]}">
+                            <div class="airline-card-name">${code} - ${airline.name}</div>
+                            <div class="airline-card-amount" style="color: ${amountColor};">${formatCurrency(data.amount)}</div>
+                            <span class="airline-card-status ${statusClass}">${data.status}</span>
+                        </div>
+                    `;
+                }
+            });
+
+            document.getElementById('airlinesGrid').innerHTML = airlinesHTML;
+        }
+
         function buildTable() {
+            const thead = document.getElementById('tableHead');
             const tbody = document.getElementById('tbody');
             tbody.innerHTML = '';
             filteredData = [];
 
-            periods.forEach((period, idx) => {
-                const invoice = invoiceData[idx];
-                const [slAmt, aiAmt, sgAmt, slSts, aiSts, sgSts, paid, bor, avl] = invoice;
+            let headerHTML = '<tr><th>Period</th><th>Invoice</th><th>Remittance</th><th>Days</th>';
+            AIRLINES.forEach(airline => {
+                headerHTML += `<th colspan="2">${airline.code}<br><small>${airline.name}</small></th>`;
+            });
+            headerHTML += '<th>Total</th><th>Paid</th><th>Pending</th><th>AVL</th><th>Progress</th></tr>';
+            thead.innerHTML = headerHTML;
+
+            periods.forEach((periodData, idx) => {
+                const row = processPeriod(periodData);
+                filteredData.push(row);
+
+                const tr = document.createElement('tr');
                 
-                const periodObj = {
-                    id: period[0],
-                    startDate: period[1],
-                    endDate: period[2],
-                    slAmount: slAmt,
-                    aiAmount: aiAmt,
-                    sgAmount: sgAmt,
-                    slStatus: slSts,
-                    aiStatus: aiSts,
-                    sgStatus: sgSts,
-                    paid: paid,
-                    borrowed: bor,
-                    avl: avl,
-                    total: slAmt + aiAmt + sgAmt,
-                    remaining: (slAmt + aiAmt + sgAmt) - paid,
-                    days: calculateDays(period[2]),
-                    index: idx
-                };
+                if (idx === currentPeriodId) {
+                    tr.classList.add('current-row');
+                } else {
+                    tr.classList.add('paid-row');
+                }
 
-                filteredData.push(periodObj);
+                const daysVal = row.days;
+                const dayStyle = daysVal < 0 ? 'color: #e74c3c; font-weight: 800;' : 'color: #27ae60;';
 
-                const row = document.createElement('tr');
-                const daysVal = periodObj.days;
-                const dayClass = daysVal < 0 ? 'style="color: #e74c3c; font-weight: 700;"' : '';
+                let rowHTML = `
+                    <td><strong>${formatPeriodName(row.id)}</strong></td>
+                    <td class="number-cell">${formatDate(row.invoiceDate)}</td>
+                    <td class="number-cell">${formatDate(row.remitDate)}</td>
+                    <td class="number-cell" style="${dayStyle}">${daysVal}</td>
+                `;
 
-                row.innerHTML = `
-                    <td><strong>${getMonthYear(periodObj.startDate)}</strong><br><small style="color: #95a5a6;">${periodObj.id}</small></td>
-                    <td class="number-cell">${formatDate(periodObj.endDate)}</td>
-                    <td class="number-cell">${formatDate(periodObj.startDate)}</td>
-                    <td class="number-cell" ${dayClass}>${daysVal} days</td>
-                    <td class="number-cell">${formatCurrency(periodObj.slAmount)}</td>
-                    <td><span class="status-badge ${periodObj.slStatus === 'PAID' ? 'status-paid' : 'status-pending'}">${periodObj.slStatus}</span></td>
-                    <td class="number-cell">${formatCurrency(periodObj.aiAmount)}</td>
-                    <td><span class="status-badge ${periodObj.aiStatus === 'PAID' ? 'status-paid' : 'status-pending'}">${periodObj.aiStatus}</span></td>
-                    <td class="number-cell">${formatCurrency(periodObj.sgAmount)}</td>
-                    <td><span class="status-badge ${periodObj.sgStatus === 'PAID' ? 'status-paid' : 'status-pending'}">${periodObj.sgStatus}</span></td>
-                    <td class="number-cell"><strong>${formatCurrency(periodObj.total)}</strong></td>
-                    <td class="number-cell" style="color: #27ae60; font-weight: 700;">${formatCurrency(periodObj.paid)}</td>
-                    <td class="number-cell" style="color: #e74c3c; font-weight: 700;">${formatCurrency(periodObj.remaining)}</td>
-                    <td class="number-cell">${formatCurrency(periodObj.borrowed)}</td>
-                    <td class="number-cell">${formatCurrency(periodObj.avl)}</td>
+                AIRLINES.forEach(airline => {
+                    const code = airline.code;
+                    const data = row.airlines[code];
+                    const amt = data ? data.amount : 0;
+                    const status = data ? data.status : "PENDING";
+                    rowHTML += `
+                        <td class="number-cell">${formatCurrency(amt)}</td>
+                        <td><span class="status-badge ${status === 'PAID' ? 'status-paid' : 'status-pending'}">${status}</span></td>
+                    `;
+                });
+
+                const paidPct = row.total > 0 ? Math.round((row.paid / row.total) * 100) : 0;
+                const avlPct = row.total > 0 ? Math.round((row.avl / row.total) * 100) : 0;
+                const pendingPct = row.total > 0 ? 100 - paidPct - avlPct : 0;
+
+                rowHTML += `
+                    <td class="number-cell"><strong>${formatCurrency(row.total)}</strong></td>
+                    <td class="number-cell" style="color: #27ae60; font-weight: 800;">${formatCurrency(row.paid)}</td>
+                    <td class="number-cell" style="color: #e74c3c; font-weight: 800;">${formatCurrency(row.pending)}</td>
+                    <td class="number-cell" style="color: #95a5a6;">${formatCurrency(row.avl)}</td>
                     <td>
-                        <div class="progress-bar">
-                            <div class="progress-fill progress-paid" style="width: ${periodObj.total > 0 ? (periodObj.paid / periodObj.total * 100) : 0}%"></div>
-                            <div class="progress-fill progress-pending" style="width: ${periodObj.total > 0 ? ((periodObj.total - periodObj.paid - periodObj.avl) / periodObj.total * 100) : 0}%"></div>
-                            <div class="progress-fill progress-avl" style="width: ${periodObj.total > 0 ? (periodObj.avl / periodObj.total * 100) : 0}%"></div>
+                        <div style="width: 100%; height: 24px; background: #ecf0f1; border-radius: 4px; overflow: hidden; display: flex; border: 1px solid #bdc3c7;">
+                            ${paidPct > 0 ? `<div style="width: ${paidPct}%; background: #27ae60; height: 100%;"></div>` : ''}
+                            ${pendingPct > 0 ? `<div style="width: ${pendingPct}%; background: #e74c3c; height: 100%;"></div>` : ''}
+                            ${avlPct > 0 ? `<div style="width: ${avlPct}%; background: #95a5a6; height: 100%;"></div>` : ''}
                         </div>
-                        <small style="display: flex; gap: 12px; font-size: 0.75rem; margin-top: 4px;">
-                            <span style="color: #27ae60;"><strong>✓</strong> ${periodObj.total > 0 ? (periodObj.paid / periodObj.total * 100).toFixed(0) : 0}%</span>
-                            <span style="color: #e74c3c;"><strong>⚠</strong> ${periodObj.total > 0 ? ((periodObj.total - periodObj.paid - periodObj.avl) / periodObj.total * 100).toFixed(0) : 0}%</span>
-                            <span style="color: #7f8c8d;"><strong>◐</strong> ${periodObj.total > 0 ? (periodObj.avl / periodObj.total * 100).toFixed(0) : 0}%</span>
+                        <small style="display: flex; gap: 10px; font-size: 0.7rem; margin-top: 3px; font-weight: 700;">
+                            <span style="color: #27ae60;">🟢${paidPct}%</span>
+                            <span style="color: #e74c3c;">🔴${pendingPct}%</span>
+                            ${avlPct > 0 ? `<span style="color: #95a5a6;">⚫${avlPct}%</span>` : ''}
                         </small>
                     </td>
                 `;
-                tbody.appendChild(row);
+
+                tr.innerHTML = rowHTML;
+                tbody.appendChild(tr);
             });
 
-            updateDashboard();
+            updateTopCards();
         }
 
-        function updateDashboard() {
-            let totalInv = 0, totalPaid = 0, totalRem = 0, totalBor = 0, totalAVL = 0, totalOver = 0;
-
-            filteredData.forEach(row => {
-                totalInv += row.total;
-                totalPaid += row.paid;
-                totalRem += row.remaining;
-                totalBor += row.borrowed;
-                totalAVL += row.avl;
-                if (row.days < 0) totalOver += row.remaining;
-            });
-
-            document.getElementById('dInv').textContent = formatCurrency(totalInv);
-            document.getElementById('dPend').textContent = formatCurrency(totalRem);
-            document.getElementById('dRem').textContent = formatCurrency(totalRem - totalAVL);
-            document.getElementById('dBor').textContent = formatCurrency(totalBor);
-            document.getElementById('dAVL').textContent = formatCurrency(totalAVL);
-            document.getElementById('dOver').textContent = formatCurrency(totalOver);
-
-            updateSummary(totalInv, totalPaid, totalRem, totalBor, totalAVL);
-            updateFooter();
-        }
-
-        function updateSummary(inv, paid, rem, bor, avl) {
-            const rate = inv > 0 ? ((paid / inv) * 100).toFixed(1) : 0;
-            const overdue = filteredData.filter(r => r.days < 0).length;
-
-            document.getElementById('sumTotalInv').textContent = formatCurrency(inv);
-            document.getElementById('sumTotalPaid').textContent = formatCurrency(paid);
-            document.getElementById('sumCollectionRate').textContent = rate + '%';
-            document.getElementById('sumTotalRem').textContent = formatCurrency(rem);
-            document.getElementById('sumTotalBor').textContent = formatCurrency(bor);
-            document.getElementById('sumTotalAVL').textContent = formatCurrency(avl);
-            document.getElementById('sumOverdueCount').textContent = overdue;
-            document.getElementById('sumPeriodCount').textContent = filteredData.length;
-        }
-
-        function updateFooter() {
-            const paid = filteredData.reduce((sum, r) => sum + r.paid, 0);
-            const total = filteredData.reduce((sum, r) => sum + r.total, 0);
-            const rate = total > 0 ? ((paid / total) * 100).toFixed(0) : 0;
-            document.getElementById('footerStatus').textContent = `${rate}% Collected`;
-        }
-
-        // ==================== FILTERING ====================
         function applyFilter() {
             const periodVal = document.getElementById('periodFilter').value;
             const airlineVal = document.getElementById('airlineFilter').value;
-
-            currentFilter = { period: periodVal, airline: airlineVal };
 
             let filtered = [...filteredData];
 
@@ -999,12 +888,7 @@
             }
 
             if (airlineVal) {
-                filtered = filtered.filter(r => {
-                    if (airlineVal === 'SL') return r.slAmount > 0;
-                    if (airlineVal === 'AI') return r.aiAmount > 0;
-                    if (airlineVal === 'SG') return r.sgAmount > 0;
-                    return true;
-                });
+                filtered = filtered.filter(r => r.airlines[airlineVal] && r.airlines[airlineVal].amount > 0);
             }
 
             renderFiltered(filtered);
@@ -1014,8 +898,8 @@
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = filteredData.filter(r => 
                 r.id.toLowerCase().includes(query) ||
-                getMonthYear(r.startDate).toLowerCase().includes(query) ||
-                formatDate(r.endDate).toLowerCase().includes(query)
+                formatPeriodName(r.id).toLowerCase().includes(query) ||
+                formatDate(r.invoiceDate).toLowerCase().includes(query)
             );
             renderFiltered(filtered);
         }
@@ -1025,68 +909,87 @@
             tbody.innerHTML = '';
 
             if (data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="16" style="text-align: center; padding: 40px; color: #95a5a6;">No records found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="20" style="text-align: center; padding: 40px; color: #95a5a6;">No records found</td></tr>';
                 return;
             }
 
             data.forEach(row => {
                 const tr = document.createElement('tr');
-                const daysVal = row.days;
-                const dayClass = daysVal < 0 ? 'style="color: #e74c3c; font-weight: 700;"' : '';
+                
+                if (row.id === currentPeriod.id) {
+                    tr.classList.add('current-row');
+                } else {
+                    tr.classList.add('paid-row');
+                }
 
-                tr.innerHTML = `
-                    <td><strong>${getMonthYear(row.startDate)}</strong><br><small style="color: #95a5a6;">${row.id}</small></td>
-                    <td class="number-cell">${formatDate(row.endDate)}</td>
-                    <td class="number-cell">${formatDate(row.startDate)}</td>
-                    <td class="number-cell" ${dayClass}>${daysVal} days</td>
-                    <td class="number-cell">${formatCurrency(row.slAmount)}</td>
-                    <td><span class="status-badge ${row.slStatus === 'PAID' ? 'status-paid' : 'status-pending'}">${row.slStatus}</span></td>
-                    <td class="number-cell">${formatCurrency(row.aiAmount)}</td>
-                    <td><span class="status-badge ${row.aiStatus === 'PAID' ? 'status-paid' : 'status-pending'}">${row.aiStatus}</span></td>
-                    <td class="number-cell">${formatCurrency(row.sgAmount)}</td>
-                    <td><span class="status-badge ${row.sgStatus === 'PAID' ? 'status-paid' : 'status-pending'}">${row.sgStatus}</span></td>
+                const daysVal = row.days;
+                const dayStyle = daysVal < 0 ? 'color: #e74c3c; font-weight: 800;' : 'color: #27ae60;';
+
+                let rowHTML = `
+                    <td><strong>${formatPeriodName(row.id)}</strong></td>
+                    <td class="number-cell">${formatDate(row.invoiceDate)}</td>
+                    <td class="number-cell">${formatDate(row.remitDate)}</td>
+                    <td class="number-cell" style="${dayStyle}">${daysVal}</td>
+                `;
+
+                AIRLINES.forEach(airline => {
+                    const code = airline.code;
+                    const data = row.airlines[code];
+                    const amt = data ? data.amount : 0;
+                    const status = data ? data.status : "PENDING";
+                    rowHTML += `
+                        <td class="number-cell">${formatCurrency(amt)}</td>
+                        <td><span class="status-badge ${status === 'PAID' ? 'status-paid' : 'status-pending'}">${status}</span></td>
+                    `;
+                });
+
+                const paidPct = row.total > 0 ? Math.round((row.paid / row.total) * 100) : 0;
+                const avlPct = row.total > 0 ? Math.round((row.avl / row.total) * 100) : 0;
+                const pendingPct = row.total > 0 ? 100 - paidPct - avlPct : 0;
+
+                rowHTML += `
                     <td class="number-cell"><strong>${formatCurrency(row.total)}</strong></td>
-                    <td class="number-cell" style="color: #27ae60; font-weight: 700;">${formatCurrency(row.paid)}</td>
-                    <td class="number-cell" style="color: #e74c3c; font-weight: 700;">${formatCurrency(row.remaining)}</td>
-                    <td class="number-cell">${formatCurrency(row.borrowed)}</td>
-                    <td class="number-cell">${formatCurrency(row.avl)}</td>
+                    <td class="number-cell" style="color: #27ae60; font-weight: 800;">${formatCurrency(row.paid)}</td>
+                    <td class="number-cell" style="color: #e74c3c; font-weight: 800;">${formatCurrency(row.pending)}</td>
+                    <td class="number-cell" style="color: #95a5a6;">${formatCurrency(row.avl)}</td>
                     <td>
-                        <div class="progress-bar">
-                            <div class="progress-fill progress-paid" style="width: ${row.total > 0 ? (row.paid / row.total * 100) : 0}%"></div>
-                            <div class="progress-fill progress-pending" style="width: ${row.total > 0 ? ((row.total - row.paid - row.avl) / row.total * 100) : 0}%"></div>
-                            <div class="progress-fill progress-avl" style="width: ${row.total > 0 ? (row.avl / row.total * 100) : 0}%"></div>
+                        <div style="width: 100%; height: 24px; background: #ecf0f1; border-radius: 4px; overflow: hidden; display: flex; border: 1px solid #bdc3c7;">
+                            ${paidPct > 0 ? `<div style="width: ${paidPct}%; background: #27ae60; height: 100%;"></div>` : ''}
+                            ${pendingPct > 0 ? `<div style="width: ${pendingPct}%; background: #e74c3c; height: 100%;"></div>` : ''}
+                            ${avlPct > 0 ? `<div style="width: ${avlPct}%; background: #95a5a6; height: 100%;"></div>` : ''}
                         </div>
-                        <small style="display: flex; gap: 12px; font-size: 0.75rem; margin-top: 4px;">
-                            <span style="color: #27ae60;"><strong>✓</strong> ${row.total > 0 ? (row.paid / row.total * 100).toFixed(0) : 0}%</span>
-                            <span style="color: #e74c3c;"><strong>⚠</strong> ${row.total > 0 ? ((row.total - row.paid - row.avl) / row.total * 100).toFixed(0) : 0}%</span>
-                            <span style="color: #7f8c8d;"><strong>◐</strong> ${row.total > 0 ? (row.avl / row.total * 100).toFixed(0) : 0}%</span>
+                        <small style="display: flex; gap: 10px; font-size: 0.7rem; margin-top: 3px; font-weight: 700;">
+                            <span style="color: #27ae60;">🟢${paidPct}%</span>
+                            <span style="color: #e74c3c;">🔴${pendingPct}%</span>
+                            ${avlPct > 0 ? `<span style="color: #95a5a6;">⚫${avlPct}%</span>` : ''}
                         </small>
                     </td>
                 `;
+
+                tr.innerHTML = rowHTML;
                 tbody.appendChild(tr);
             });
         }
 
-        // ==================== EXPORT FUNCTIONS ====================
         function exportCSV() {
-            let csv = "Period,Invoice End,Remittance,Days,SL Amount,SL Status,AI Amount,AI Status,SG Amount,SG Status,Total,Paid,Remaining,Borrowed,AVL,Progress\n";
+            let csv = "Period,Invoice,Remittance,Days," + AIRLINES.map(a => `${a.code}_Amount,${a.code}_Status`).join(',') + ",Total,Paid,Pending,AVL\n";
             
             filteredData.forEach(row => {
-                const slNum = row.slAmount.toString();
-                const aiNum = row.aiAmount.toString();
-                const sgNum = row.sgAmount.toString();
-                csv += `"${row.id}","${formatDate(row.endDate)}","${formatDate(row.startDate)}","${row.days}","${slNum}","${row.slStatus}","${aiNum}","${row.aiStatus}","${sgNum}","${row.sgStatus}","${row.total}","${row.paid}","${row.remaining}","${row.borrowed}","${row.avl}","${row.total > 0 ? (row.paid / row.total * 100).toFixed(0) : 0}%"\n`;
+                let airlineData = AIRLINES.map(airline => {
+                    const data = row.airlines[airline.code];
+                    return `"${data ? data.amount : 0}","${data ? data.status : 'PENDING'}"`;
+                }).join(',');
+                
+                csv += `"${formatPeriodName(row.id)}","${formatDate(row.invoiceDate)}","${formatDate(row.remitDate)}","${row.days}",${airlineData},"${row.total}","${row.paid}","${row.pending}","${row.avl}"\n`;
             });
 
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `Airline-Dashboard-${new Date().toISOString().split('T')[0]}.csv`;
+            a.download = `SeaportFN-Dashboard-${new Date().toISOString().split('T')[0]}.csv`;
             a.click();
             window.URL.revokeObjectURL(url);
-
-            showNotification('📄 CSV exported successfully!');
         }
 
         function exportJSON() {
@@ -1095,77 +998,103 @@
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `Airline-Dashboard-${new Date().toISOString().split('T')[0]}.json`;
+            a.download = `SeaportFN-Dashboard-${new Date().toISOString().split('T')[0]}.json`;
             a.click();
             window.URL.revokeObjectURL(url);
-
-            showNotification('📋 JSON exported successfully!');
-        }
-
-        function copyTable() {
-            let text = "Period\tInvoice End\tRemittance\tDays\tSL Amt\tSL Status\tAI Amt\tAI Status\tSG Amt\tSG Status\tTotal\tPaid\tRemaining\tBorrowed\tAVL\tProgress\n";
-            
-            filteredData.forEach(row => {
-                text += `${row.id}\t${formatDate(row.endDate)}\t${formatDate(row.startDate)}\t${row.days}\t${row.slAmount}\t${row.slStatus}\t${row.aiAmount}\t${row.aiStatus}\t${row.sgAmount}\t${row.sgStatus}\t${row.total}\t${row.paid}\t${row.remaining}\t${row.borrowed}\t${row.avl}\t${row.total > 0 ? (row.paid / row.total * 100).toFixed(0) : 0}%\n`;
-            });
-
-            navigator.clipboard.writeText(text).then(() => {
-                showNotification('✅ Table copied to clipboard!');
-            });
-        }
-
-        // ==================== PANEL CONTROLS ====================
-        function toggleExportPanel() {
-            const panel = document.getElementById('exportPanel');
-            panel.classList.toggle('show');
         }
 
         function showSummary() {
-            const panel = document.getElementById('summaryPanel');
-            panel.classList.add('show');
+            if (!currentPeriod) return;
+
+            let html = `
+                <h3 style="color: #667eea; margin-bottom: 15px; font-size: 1rem; font-weight: 700;">📍 ${formatPeriodName(currentPeriod.id)}</h3>
+                
+                <div class="summary-item">
+                    <span>Total Invoice:</span>
+                    <span class="summary-value">${formatCurrency(currentPeriod.total)}</span>
+                </div>
+                <div class="summary-item">
+                    <span>Amount Paid:</span>
+                    <span class="summary-value" style="color: #27ae60;">${formatCurrency(currentPeriod.paid)}</span>
+                </div>
+                <div class="summary-item">
+                    <span>AVL Buffer:</span>
+                    <span class="summary-value" style="color: #e67e22;">${formatCurrency(currentPeriod.avl)}</span>
+                </div>
+                <div class="summary-item">
+                    <span>Outstanding (Pending):</span>
+                    <span class="summary-value" style="color: #e74c3c;">${formatCurrency(currentPeriod.pending)}</span>
+                </div>
+                <div class="summary-item" style="border-left-color: #27ae60; margin-top: 15px;">
+                    <span style="font-weight: 800;">Collection Rate:</span>
+                    <span class="summary-value" style="color: #27ae60; font-size: 1.2rem;">${currentPeriod.total > 0 ? Math.round((currentPeriod.paid / currentPeriod.total) * 100) : 0}%</span>
+                </div>
+
+                <h4 style="color: #667eea; margin: 20px 0 12px 0; font-size: 0.9rem; font-weight: 700;">✈️ Airlines</h4>
+            `;
+
+            AIRLINES.forEach(airline => {
+                const data = currentPeriod.airlines[airline.code];
+                if (data) {
+                    const statusColor = data.status === 'PAID' ? '#27ae60' : '#e74c3c';
+                    html += `
+                        <div class="summary-item" style="border-left-color: ${statusColor};">
+                            <span>${airline.code} - ${airline.name}</span>
+                            <div style="display: flex; gap: 12px; align-items: center;">
+                                <span class="summary-value">${formatCurrency(data.amount)}</span>
+                                <span style="background: ${data.status === 'PAID' ? '#d5f4e6' : '#fdeaea'}; color: ${statusColor}; padding: 3px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">${data.status}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            document.getElementById('summaryContent').innerHTML = html;
+            document.getElementById('summaryPanel').classList.add('show');
         }
 
         function hideSummary() {
-            const panel = document.getElementById('summaryPanel');
-            panel.classList.remove('show');
+            document.getElementById('summaryPanel').classList.remove('show');
         }
 
-        // ==================== INITIALIZATION ====================
         function init() {
-            // Populate period filter
+            // Set today's date in watermark
+            const today = new Date();
+            document.getElementById('todayDate').textContent = today.toLocaleDateString('en-IN', { 
+                day: '2-digit', 
+                month: 'short', 
+                year: 'numeric' 
+            });
+
             const periodSelect = document.getElementById('periodFilter');
             periods.forEach(period => {
                 const option = document.createElement('option');
-                option.value = period[0];
-                option.textContent = getMonthYear(period[1]);
+                option.value = period.id;
+                option.textContent = formatPeriodName(period.id);
                 periodSelect.appendChild(option);
             });
 
-            // Build table
-            buildTable();
-
-            // Set last updated time
-            document.getElementById('updateTime').textContent = new Date().toLocaleString('en-IN', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
+            const airlineSelect = document.getElementById('airlineFilter');
+            AIRLINES.forEach(airline => {
+                const option = document.createElement('option');
+                option.value = airline.code;
+                option.textContent = `${airline.code} - ${airline.name}`;
+                airlineSelect.appendChild(option);
             });
 
-            // Close panels on outside click
+            buildTable();
+
+            document.getElementById('airlineCount').textContent = AIRLINES.length;
+            document.getElementById('periodCount').textContent = periods.length;
+            document.getElementById('lastUpdate').textContent = today.toLocaleDateString('en-IN');
+
             document.addEventListener('click', (e) => {
-                const exportPanel = document.getElementById('exportPanel');
-                const summaryPanel = document.getElementById('summaryPanel');
-                
                 if (!e.target.closest('.floating-panel') && !e.target.closest('.btn')) {
-                    exportPanel.classList.remove('show');
-                    summaryPanel.classList.remove('show');
+                    hideSummary();
                 }
             });
         }
 
-        // ==================== START ====================
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
