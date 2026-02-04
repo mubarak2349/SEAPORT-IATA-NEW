@@ -24,20 +24,6 @@
             overflow-x: hidden;
         }
 
-      
-        .watermark-left a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 700;
-            display: block;
-            margin: 3px 0;
-            font-size: 11px;
-        }
-
-        .watermark-left a:hover {
-            text-decoration: underline;
-        }
-
         .container {
             flex: 1;
             display: flex;
@@ -85,14 +71,30 @@
             display: flex;
             animation: scroll 45s linear infinite;
             white-space: nowrap;
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 700;
+            font-size: 1rem;
             letter-spacing: 1px;
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         .marquee-text {
             padding: 0 50px;
             display: inline-block;
+        }
+
+        .marquee-text a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .marquee-text a:hover {
+            color: #ffed4e;
+            text-decoration: underline;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
 
         @keyframes scroll {
@@ -174,6 +176,7 @@
         .airlines-section {
             max-width: 1800px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
         .airlines-title {
@@ -543,54 +546,52 @@
     </style>
 </head>
 <body>
-    
+    <div class="container">
+        <header>
+            <h1>Seaport FN Airlines Payable - Dashboard</h1>
+            <p class="header-subtitle">AIR DIVISION - Airline Payment Tracking System</p>
+            <div class="credit-line">🔒 View-Only Authentication</div>
+        </header>
 
-   <div class="container">
-    <header>
-        <h1>Seaport FN Airlines Payable - Dashboard</h1>
-        <p class="header-subtitle">AIR DIVISION - Airline Payment Tracking System</p>
-        <div class="credit-line">🔒 View-Only Authentication</div>
-    </header>
+        <!-- MARQUEE -->
+        <div class="marquee-container">
+            <div class="marquee">
+                <span class="marquee-text">|| Internal Tools dev by Mcode ||</span>
 
-    <!-- MARQUEE -->
-    <div class="marquee-container">
-        <div class="marquee">
-            <span class="marquee-text">|| Internal Tools dev by Mcode ||</span>
+                <span class="marquee-text">
+                    || <a href="https://aai-extract-tool-seaport-lines-air-coral.vercel.app/"
+                         target="_blank" rel="noopener noreferrer">
+                         Vendor Invoice Extract v2.9
+                    </a> ||
+                </span>
 
-            <span class="marquee-text">
-                || <a href="https://aai-extract-tool-seaport-lines-air-coral.vercel.app/"
-                     target="_blank" rel="noopener noreferrer">
-                     Vendor Invoice Extract v2.9
-                </a> ||
-            </span>
+                <span class="marquee-text">
+                    || <a href="https://kyc-seaport-lines-india-pvt-ltd-ws9.vercel.app/"
+                         target="_blank" rel="noopener noreferrer">
+                         KYC Form v3.0
+                    </a> ||
+                </span>
 
-            <span class="marquee-text">
-                || <a href="https://kyc-seaport-lines-india-pvt-ltd-ws9.vercel.app/"
-                     target="_blank" rel="noopener noreferrer">
-                     KYC Form v3.0
-                </a> ||
-            </span>
+                <span class="marquee-text">
+                    || <a href="https://seaport-air-div-caculation-tool-web.vercel.app/"
+                         target="_blank" rel="noopener noreferrer">
+                         Calculation Tools v3.1
+                    </a> ||
+                </span>
 
-            <span class="marquee-text">
-                || <a href="https://seaport-air-div-caculation-tool-web.vercel.app/"
-                     target="_blank" rel="noopener noreferrer">
-                     Calculation Tools v3.1
-                </a> ||
-            </span>
-
-            <span class="marquee-text">
-                || Developed & Copyright © Mcode 2026 @ Mubarak ||
-            </span>
-        </div>
-    </div> <!-- ✅ CLOSED marquee-container -->
-
-    <!-- TOP CARDS -->
-    <div class="top-cards">
-        <div class="cards-grid">
-            <div class="top-card highlight">
-                <div class="top-card-label">Current Fortnight Period</div>
-                <div class="top-card-value" style="font-size: 1.2rem;" id="topPeriod">—</div>
+                <span class="marquee-text">
+                    || Developed & Copyright © Mcode 2026 @ Mubarak ||
+                </span>
             </div>
+        </div>
+
+        <!-- TOP CARDS -->
+        <div class="top-cards">
+            <div class="cards-grid">
+                <div class="top-card highlight">
+                    <div class="top-card-label">Current Fortnight Period</div>
+                    <div class="top-card-value" style="font-size: 1.2rem;" id="topPeriod">—</div>
+                </div>
 
                 <div class="top-card">
                     <div class="top-card-label">📊 Total Invoice</div>
@@ -645,19 +646,19 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="floating-panel" id="summaryPanel">
-        <div class="panel-header">
-            <div class="panel-title">📈 Current Period Summary</div>
-            <span class="panel-close" onclick="hideSummary()">✕</span>
+        <div class="floating-panel" id="summaryPanel">
+            <div class="panel-header">
+                <div class="panel-title">📈 Current Period Summary</div>
+                <span class="panel-close" onclick="hideSummary()">✕</span>
+            </div>
+            <div class="panel-content" id="summaryContent"></div>
         </div>
-        <div class="panel-content" id="summaryContent"></div>
-    </div>
 
-    <footer>
-         Airlines: <strong id="airlineCount">5</strong> | 📅 Periods: <strong id="periodCount">27</strong> | 🔄 Last Updated: <strong id="lastUpdate">datetime</strong> | Powered by  Mcode'2026 @ Mubarak
-    </footer>
+        <footer>
+            Airlines: <strong id="airlineCount">5</strong> | 📅 Periods: <strong id="periodCount">27</strong> | 🔄 Last Updated: <strong id="lastUpdate">datetime</strong> | Powered by Mcode'2026 @ Mubarak
+        </footer>
+    </div>
 
     <script>
         const AIRLINES = [
@@ -1056,11 +1057,10 @@
                     <span>Outstanding (Pending):</span>
                     <span class="summary-value" style="color: #e74c3c;">${formatCurrency(currentPeriod.pending)}</span>
                 </div>
-<div class="summary-item">
+                <div class="summary-item">
                     <span>Amount Paid:</span>
                     <span class="summary-value" style="color: #27ae60;">${formatCurrency(currentPeriod.paid)}</span>
                 </div>
-                
 
                 <div class="summary-section-title">✈️ Airlines Breakdown</div>
             `;
@@ -1091,11 +1091,6 @@
 
         function init() {
             const today = new Date();
-            document.getElementById('todayDate').textContent = today.toLocaleDateString('en-IN', { 
-                day: '2-digit', 
-                month: 'short', 
-                year: 'numeric' 
-            });
 
             const periodSelect = document.getElementById('periodFilter');
             periods.forEach(period => {
@@ -1130,13 +1125,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
