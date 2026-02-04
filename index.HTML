@@ -41,6 +41,36 @@
             line-height: 1.6;
         }
 
+        .watermark-left {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-weight: 700;
+            color: #667eea;
+            font-size: 12px;
+            border: 2px solid #667eea;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .watermark-left a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 700;
+            display: block;
+            margin: 3px 0;
+            font-size: 11px;
+        }
+
+        .watermark-left a:hover {
+            text-decoration: underline;
+        }
+
         .container {
             flex: 1;
             display: flex;
@@ -120,7 +150,7 @@
 
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
             max-width: 1800px;
             margin: 0 auto 20px auto;
@@ -146,7 +176,7 @@
         }
 
         .top-card-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #7f8c8d;
             font-weight: 700;
             text-transform: uppercase;
@@ -155,7 +185,7 @@
         }
 
         .top-card-value {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: #667eea;
             font-family: 'Courier New', monospace;
@@ -192,14 +222,14 @@
 
         .airlines-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
         }
 
         .airline-card {
             background: white;
             border-radius: 10px;
-            padding: 20px;
+            padding: 18px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.08);
             border-left: 5px solid #667eea;
             transition: all 0.3s ease;
@@ -220,25 +250,25 @@
         }
 
         .airline-card-name {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: #2c3e50;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .airline-card-amount {
             font-family: 'Courier New', monospace;
             font-weight: 800;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #667eea;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .airline-card-status {
             display: inline-block;
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 12px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
         }
@@ -411,9 +441,9 @@
             background: white;
             border-radius: 10px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
+            max-width: 550px;
             width: 90%;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
             z-index: 999;
             animation: slideUp 0.3s ease;
@@ -463,18 +493,18 @@
         }
 
         .panel-content {
-            padding: 20px;
+            padding: 25px;
             flex: 1;
         }
 
         .summary-item {
             display: flex;
             justify-content: space-between;
-            padding: 10px;
-            margin-bottom: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
             background: #f8f9fa;
             border-radius: 6px;
-            border-left: 3px solid #667eea;
+            border-left: 4px solid #667eea;
             font-weight: 600;
         }
 
@@ -482,6 +512,16 @@
             font-family: 'Courier New', monospace;
             font-weight: 800;
             color: #667eea;
+        }
+
+        .summary-section-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin: 15px 0 12px 0;
+            font-size: 0.9rem;
+            font-weight: 700;
         }
 
         footer {
@@ -542,26 +582,28 @@
         <span id="todayDate" style="font-size: 11px; opacity: 0.9;"></span>
     </div>
 
+    <div class="watermark-left">
+        INTERNAL TOOLS @Mcode<br>
+        <a href="https://aai-extract-tool-seaport-lines-air-coral.vercel.app/" target="_blank">Vendor Invoice Extract v2.9</a>
+        <a href="https://kyc-seaport-lines-india-pvt-ltd-ws9.vercel.app/" target="_blank">KYC Form v3.0</a>
+        <a href="https://seaport-air-div-caculation-tool-web.vercel.app/" target="_blank">Calculation Tools v3.1</a>
+    </div>
+
     <div class="container">
         <header>
-            <h1> Seaport FN Airlines Payable - Dashboard</h1>
-            <p class="header-subtitle">AIR DIVISION -  Airline Payment Tracking System</p>
-           <div class="credit-line">
-  🔒 <a href="https://aai-extract-tool-seaport-lines-air-coral.vercel.app/">SEAPORT - VENDOR INVOICE EXTRACT TOOLS</a>
-</div>
-
+            <h1>🛢️ Seaport FN Airlines Payable - Dashboard</h1>
+            <p class="header-subtitle">AIR DIVISION - Airline Payment Tracking System</p>
+            <div class="credit-line">🔒 Secured Authentication</div>
         </header>
 
         <!-- MARQUEE -->
         <div class="marquee-container">
             <div class="marquee">
-              
- <span class="marquee-text">|| SEAPORT LINES INDIA PVT LTD ||</span>
+                <span class="marquee-text">|| SEAPORT LINES INDIA PVT LTD ||</span>
                 <span class="marquee-text">AIR DIVISION ||</span>
                 <span class="marquee-text">|| 📊 Payment Tracking System ||</span>
-  <span class="marquee-text">📡 Real-time Update | Daily Authentication Verified |</span>
-               
-               <span class="marquee-text">💰 View-Only Details - Backend Updates Daily |</span>
+                <span class="marquee-text">📡 Real-time Update | Daily Authentication Verified |</span>
+                <span class="marquee-text">💰 View-Only Details - Backend Updates Daily |</span>
             </div>
         </div>
 
@@ -570,11 +612,15 @@
             <div class="cards-grid">
                 <div class="top-card highlight">
                     <div class="top-card-label">📅 Current Period</div>
-                    <div class="top-card-value" style="font-size: 1.3rem;" id="topPeriod">—</div>
+                    <div class="top-card-value" style="font-size: 1.2rem;" id="topPeriod">—</div>
                 </div>
                 <div class="top-card">
                     <div class="top-card-label">📊 Total Invoice</div>
                     <div class="top-card-value" id="topTotal">₹0</div>
+                </div>
+                <div class="top-card">
+                    <div class="top-card-label">📅 Remittance</div>
+                    <div class="top-card-value" style="font-size: 1.2rem;" id="topRemit">—</div>
                 </div>
                 <div class="top-card">
                     <div class="top-card-label">⏰ Days Remaining</div>
@@ -648,7 +694,7 @@
             { id: "20251102F", dates: ["2025-12-09", "2025-12-30"], airlines: [["SL", 1411196, "PAID"], ["AI", 1061148, "PAID"], ["SQ", 1894593, "PAID"], ["TP", 0, "PAID"], ["OT", 0, "PAID"]], avl: 0 },
             { id: "20251201F", dates: ["2025-12-25", "2026-01-14"], airlines: [["SL", 1839350, "PAID"], ["AI", 489611, "PAID"], ["SQ", 2428937, "PAID"], ["TP", 0, "PAID"], ["OT", 0, "PAID"]], avl: 0 },
             { id: "20251202F", dates: ["2026-01-08", "2026-01-30"], airlines: [["SL", 2089753, "PAID"], ["AI", 724150, "PAID"], ["SQ", 1975908, "PAID"], ["TP", 0, "PAID"], ["OT", 0, "PAID"]], avl: 0 },
-            { id: "20260101F", dates: ["2026-01-25", "2026-02-16"], airlines: [["SL", 1943404, "PENDING"], ["AI", 617083, "PENDING"], ["SQ", 2840655, "PENDING"], ["TP", 231085, "PENDING"], ["OT", 8346, "PENDING"]], avl: 362584 },
+            { id: "20260101F", dates: ["2026-01-25", "2026-02-16"], airlines: [["SL", 1943404, "PENDING"], ["AI", 617083, "PENDING"], ["SQ", 2840655, "PENDING"], ["TP", 231085, "PENDING"], ["OT", 8346, "PENDING"]], avl: 452148 },
             { id: "20260102F", dates: ["2026-02-07", "2026-03-02"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
             { id: "20260201F", dates: ["2026-02-24", "2026-03-17"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
             { id: "20260202F", dates: ["2026-03-07", "2026-03-30"], airlines: [["SL", 0, "PENDING"], ["AI", 0, "PENDING"], ["SQ", 0, "PENDING"], ["TP", 0, "PENDING"], ["OT", 0, "PENDING"]], avl: 0 },
@@ -679,7 +725,6 @@
         let currentPeriodId = null;
 
         function formatPeriodName(periodId) {
-            // Format: 20260101F -> 1 FN JAN'26
             const year = periodId.substring(0, 4);
             const month = periodId.substring(4, 6);
             const fn = periodId.substring(6, 8);
@@ -773,6 +818,7 @@
 
             document.getElementById('topPeriod').textContent = formatPeriodName(currentPeriod.id);
             document.getElementById('topTotal').textContent = formatCurrency(currentPeriod.total);
+            document.getElementById('topRemit').textContent = formatDate(currentPeriod.remitDate);
             
             const daysVal = currentPeriod.days;
             const daysEl = document.getElementById('topDays');
@@ -1010,8 +1056,16 @@
             if (!currentPeriod) return;
 
             let html = `
-                <h3 style="color: #667eea; margin-bottom: 15px; font-size: 1rem; font-weight: 700;">📍 ${formatPeriodName(currentPeriod.id)}</h3>
-                
+                <div style="background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%); padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #667eea;">
+                    <h3 style="color: #667eea; margin-bottom: 8px; font-size: 1.1rem; font-weight: 800;">📍 ${formatPeriodName(currentPeriod.id)}</h3>
+                    <div style="font-size: 0.9rem; color: #2c3e50;">
+                        <strong>Invoice:</strong> ${formatDate(currentPeriod.invoiceDate)} | 
+                        <strong>Remittance:</strong> ${formatDate(currentPeriod.remitDate)} | 
+                        <strong>Days:</strong> <span style="color: ${currentPeriod.days < 0 ? '#e74c3c' : '#27ae60'}; font-weight: 800;">${currentPeriod.days}</span>
+                    </div>
+                </div>
+
+                <div class="summary-section-title">💰 Financial Summary</div>
                 <div class="summary-item">
                     <span>Total Invoice:</span>
                     <span class="summary-value">${formatCurrency(currentPeriod.total)}</span>
@@ -1021,19 +1075,19 @@
                     <span class="summary-value" style="color: #27ae60;">${formatCurrency(currentPeriod.paid)}</span>
                 </div>
                 <div class="summary-item">
-                    <span> AVL BAL IN 483 A/C:</span>
+                    <span>AVL BAL IN 483 A/C:</span>
                     <span class="summary-value" style="color: #e67e22;">${formatCurrency(currentPeriod.avl)}</span>
                 </div>
                 <div class="summary-item">
                     <span>Outstanding (Pending):</span>
                     <span class="summary-value" style="color: #e74c3c;">${formatCurrency(currentPeriod.pending)}</span>
                 </div>
-                <div class="summary-item" style="border-left-color: #27ae60; margin-top: 15px;">
+                <div class="summary-item" style="border-left-color: #27ae60; margin-top: 10px;">
                     <span style="font-weight: 800;">Collection Rate:</span>
-                    <span class="summary-value" style="color: #27ae60; font-size: 1.2rem;">${currentPeriod.total > 0 ? Math.round((currentPeriod.paid / currentPeriod.total) * 100) : 0}%</span>
+                    <span class="summary-value" style="color: #27ae60; font-size: 1.3rem;">${currentPeriod.total > 0 ? Math.round((currentPeriod.paid / currentPeriod.total) * 100) : 0}%</span>
                 </div>
 
-                <h4 style="color: #667eea; margin: 20px 0 12px 0; font-size: 0.9rem; font-weight: 700;">✈️ Airlines</h4>
+                <div class="summary-section-title">✈️ Airlines Breakdown</div>
             `;
 
             AIRLINES.forEach(airline => {
@@ -1042,10 +1096,10 @@
                     const statusColor = data.status === 'PAID' ? '#27ae60' : '#e74c3c';
                     html += `
                         <div class="summary-item" style="border-left-color: ${statusColor};">
-                            <span>${airline.code} - ${airline.name}</span>
+                            <span style="font-weight: 700;">${airline.code} - ${airline.name}</span>
                             <div style="display: flex; gap: 12px; align-items: center;">
                                 <span class="summary-value">${formatCurrency(data.amount)}</span>
-                                <span style="background: ${data.status === 'PAID' ? '#d5f4e6' : '#fdeaea'}; color: ${statusColor}; padding: 3px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">${data.status}</span>
+                                <span style="background: ${data.status === 'PAID' ? '#d5f4e6' : '#fdeaea'}; color: ${statusColor}; padding: 4px 10px; border-radius: 10px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">${data.status}</span>
                             </div>
                         </div>
                     `;
@@ -1061,7 +1115,6 @@
         }
 
         function init() {
-            // Set today's date in watermark
             const today = new Date();
             document.getElementById('todayDate').textContent = today.toLocaleDateString('en-IN', { 
                 day: '2-digit', 
@@ -1102,8 +1155,3 @@
     </script>
 </body>
 </html>
-
-	
-
-
-
